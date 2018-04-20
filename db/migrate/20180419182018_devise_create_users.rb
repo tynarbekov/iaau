@@ -3,8 +3,7 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
-      t.string :username
-      t.integer :student_id ,unique: true
+      t.string :username,unique: true
       t.string :name
       t.string :surname
       t.string :email
@@ -12,7 +11,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :phone
       t.string :profile_image
       t.date :date_of_birth
-      t.string :gender
+      # associations
+
+      t.references :gender
+      t.references :user_role
+      t.references :group
       ## Database authenticatable
       # t.string :email,              null: false, default: ""
       # t.string :encrypted_password, null: false, default: ""

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  org_skill: MyString
+  publication: MyString
+  project: MyString
+  user: one
+
+two:
+  org_skill: MyString
+  publication: MyString
+  project: MyString
+  user: two

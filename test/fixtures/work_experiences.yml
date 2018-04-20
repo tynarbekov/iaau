@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  place: MyString
+  work_period: MyString
+  position: MyString
+  user: one
+
+two:
+  place: MyString
+  work_period: MyString
+  position: MyString
+  user: two
