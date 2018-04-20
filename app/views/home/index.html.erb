@@ -1,0 +1,5 @@
+<p> <%= link_to  "Login", new_user_session_path , class:"btn btn-success navbar-right login-btn", locale: "en" %> </p>
+
+<% if user_signed_in? %>
+  <%= @user.username %>
+<% end %>

@@ -7,6 +7,13 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+
+# for authenticate
+gem 'devise'
+# cas authenticate
+gem 'devise_cas_authenticatable'
+# end
+
 gem 'rails', '~> 5.0.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
