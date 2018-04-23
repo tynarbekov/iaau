@@ -3,3 +3,83 @@
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+
+
+<!-- <div class="col-md-7">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <h2 class="my-0">Languages</h2>
+          <form name="createLanguage" method="post" action="/v1/api/createLanguage">
+
+              <div class="form-group">
+                  <label for="newLanguage">New Language</label>
+                  <select class="" name="language">
+                    <% @languagesList.each do |list| %>
+                    <option value="<%= list.id %>"><%= list.language %></option>
+                    <% end %>
+                  </select><br>
+              </div>
+
+              <div class="form-group">
+                  <label for="newLanguage">Level of Language</label>
+                  <select class="" name="skillLevel">
+                    <% @skillLevel.each do |skill| %>
+                    <option value="<%= skill.id %>"><%= skill.level %></option>
+                    <% end %>
+                  </select><br>
+              </div>
+
+              <button class="btn btn-warning btn-lg" type="submit" >Создать</button>
+          </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> <! .col-sm -->
+<!--
+<div class="col-md-7">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <h2 class="my-0">Your Languages</h2>
+          <% @languages.each do |lang| %>
+            <%= lang.language.language %>
+            <%= lang.skill_level.level %>
+            <%= link_to 'Edit', user_language_edit_path(current_user,lang) %>
+            <%= link_to 'Destroy', user_language_destroy_path(current_user,lang), method: :delete, data: { confirm: 'Are you sure?' } %><br>
+
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript"> -->
+    <!-- // getAllLanguages();
+    // function getAllLanguages(){
+    //   let userId = <%= current_user.id %>
+    //
+    //   let reqUrl = '/v1/api/getAllLanguages/' + userId;
+    //   $.ajax({
+    //     async: false,
+    //     type: 'GET',
+    //     url: reqUrl,
+    //     dataType: 'JSON',
+    //     success: function(data){
+    //       console.log(data);
+    //       $.each(data,function(i,languages){
+    //         $.each(languages,function(j,language){
+    //           $("#languages").append(language.language + language + "<br>")
+    //         })
+    //       })
+    //     }
+    //   })
+    // } -->
+<!-- </script> --> 

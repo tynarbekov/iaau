@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Computer Skills</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @computer_skills.each do |computer_skill| %>
+      <tr>
+        <td><%= link_to 'Show', computer_skill %></td>
+        <td><%= link_to 'Edit', edit_computer_skill_path(computer_skill) %></td>
+        <td><%= link_to 'Destroy', computer_skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Computer Skill', new_computer_skill_path %>

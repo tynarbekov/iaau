@@ -1,4 +1,3 @@
 class Language < ApplicationRecord
-  belongs_to :user
-  belongs_to :skill_level
+  has_many :languages
 end

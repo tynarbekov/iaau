@@ -1,0 +1,78 @@
+<br>
+<div class="container content" style="height: 500px;">
+  <div class="row">
+    <div class="col-sm-2 col-xs-12">
+    </div>
+    <div class="col-sm-7 col-xs-12">
+      <table>
+        <tr>
+          <td><strong>Username: </strong></td>
+          <td><%= @user.username %></td>
+        </tr>
+        <tr>
+          <td><strong>Name: </strong></td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><strong>Surname: </strong></td>
+          <td><%= @user.surname %></td>
+        </tr>
+        <tr>
+          <td><strong>Group: </strong></td>
+          <td><%= Group.find(current_user.group_id).name if current_user.group_id? %></td>
+        </tr>
+        <tr>
+          <td><strong>E-mail: </strong></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><strong>Address: </strong></td>
+          <td><%= @user.address %></td>
+        </tr>
+        <tr>
+          <td><strong>Phone: </strong></td>
+          <td><%= @user.phone %></td>
+        </tr>
+        <tr>
+          <td><strong>Date of Birth: </strong></td>
+          <td><%= @user.date_of_birth %></td>
+        </tr>
+        <tr>
+          <td><strong>Gender:</strong></td>
+          <td><%= Gender.find(current_user.gender_id).name if current_user.gender_id? %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-3 col-xs-12">
+      <% if current_user == @user %>
+        <%= link_to "Edit Profile" , edit_user_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Languages" , user_user_languages_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Educations" , user_educations_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Work Experiencies" , user_work_experiences_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Computer Skills" , user_computer_skills_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Proffesional Skills" , user_proffesional_skills_path(@user), class: "btn btn-warning" %><br>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

@@ -1,0 +1,41 @@
+<div class="container content">
+  <%= form_for (@user),html: {multipart: true} do |f| %>
+    <table>
+      <tr>
+        <td><%= f.label :name %>: </td>
+        <td><%= f.text_field :name %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :surname %>: </td>
+        <td><%= f.text_field :surname %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :group_id %>: </td>
+        <td><%= f.collection_select :group_id, Group.order(:id), :id, :name, include_blank: true %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :email %>: </td>
+        <td><%= f.text_field :email %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :address %>: </td>
+        <td><%= f.text_field :address %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :phone %>: </td>
+        <td><%= f.text_field :phone %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :date_of_birth %>: </td>
+        <td><%= f.date_field :date_of_birth %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :gender %>: </td>
+        <td><%= f.collection_select :gender_id, Gender.order(:id), :id, :name, include_blank: true %></td>
+      </tr>
+    </table>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
