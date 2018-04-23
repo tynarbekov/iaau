@@ -12,6 +12,12 @@
 
 ActiveRecord::Schema.define(version: 20180420183024) do
 
+  create_table "computer_skill_lists", force: :cascade do |t|
+    t.string   "comp_skill"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "computer_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_level_id"
@@ -21,12 +27,6 @@ ActiveRecord::Schema.define(version: 20180420183024) do
     t.index ["computer_skill_list_id"], name: "index_computer_skills_on_computer_skill_list_id"
     t.index ["skill_level_id"], name: "index_computer_skills_on_skill_level_id"
     t.index ["user_id"], name: "index_computer_skills_on_user_id"
-  end
-
-  create_table "comuter_skill_lists", force: :cascade do |t|
-    t.string   "comp_skill"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "educations", force: :cascade do |t|

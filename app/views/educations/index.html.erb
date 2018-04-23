@@ -1,25 +1,36 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Create Language</h1>
+<div class="col-md-7">
+    <div class="card">
+      <div class="card-body">
+
+        <div class="card">
+        <ul class="list-group list-group-flush">
+        <h2 class="my-0">Education</h2>
+        <form name="createLanguage" method="post" action="/v1/api/createEducation">
+
+        <div class="form-group">
+          Place:   <input type="text" name="place" value=""><br>
+          Period:  <input type="text" name="period" value=""><br>
+          Faculty: <input type="text" name="faculty" value=""><br>
+        </div>
+
+        <button class="btn btn-warning btn-lg" type="submit" >Create</button>
+        </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <h1>Educations</h1>
+<% @educations.each do |education| %>
+  <%= education.place %>
+  <%= education.period %>
+  <%= education.faculty %>
+  <%= link_to 'Edit', edit_user_education_path(current_user,education) %>
+  <%= link_to 'Destroy', user_education_path(current_user,education), method: :delete, data: { confirm: 'Are you sure?' } %><br>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @educations.each do |education| %>
-      <tr>
-        <td><%= link_to 'Show', education %></td>
-        <td><%= link_to 'Edit', edit_education_path(education) %></td>
-        <td><%= link_to 'Destroy', education, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Education', new_education_path %>
+<% end %>

@@ -1,3 +1,3 @@
 class ProffesionalSkillList < ApplicationRecord
-  has_many :professional_skills
+  has_many :proffesional_skills
 end

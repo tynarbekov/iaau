@@ -4,7 +4,9 @@ class UserLanguagesController < ApplicationController
   # GET /user_languages
   # GET /user_languages.json
   def index
-    @user_languages = UserLanguage.all
+    @user_languages = current_user.user_languages.all
+    @languagesList = Language.all
+    @skillLevel = SkillLevel.all
   end
 
   # GET /user_languages/1
@@ -42,7 +44,7 @@ class UserLanguagesController < ApplicationController
   def update
     respond_to do |format|
       if @user_language.update(user_language_params)
-        format.html { redirect_to @user_language, notice: 'User language was successfully updated.' }
+        format.html { redirect_to user_user_languages_path, notice: 'User language was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_language }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class UserLanguagesController < ApplicationController
   def destroy
     @user_language.destroy
     respond_to do |format|
-      format.html { redirect_to user_languages_url, notice: 'User language was successfully destroyed.' }
+      format.html { redirect_to user_user_languages_url, notice: 'User language was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class UserLanguagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_language_params
-      params.fetch(:user_language, {})
+      params.require(:user_language).permit!
     end
 end

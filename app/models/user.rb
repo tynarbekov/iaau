@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
 
   has_many   :computer_skills
-  has_many   :professional_skills
+  has_many   :proffesional_skills
   has_many   :educations
   has_many   :work_experiences
   has_many   :user_languages

@@ -1,4 +1,4 @@
-<%= form_for(user_language) do |f| %>
+<%= form_for [current_user,@user_language] do |f| %>
   <% if user_language.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_language.errors.count, "error") %> prohibited this user_language from being saved:</h2>
@@ -10,6 +10,19 @@
       </ul>
     </div>
   <% end %>
+
+  <table>
+    <tr>
+      <td><%= f.label :language_id %>: </td>
+      <td><%= f.collection_select :language_id,Language.order(:language),:id,:language,include_blank: true %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :skill_level_id %>: </td>
+      <td><%= f.collection_select :skill_level_id, SkillLevel.order(:id), :id, :level, include_blank: true %></td>
+    </tr>
+  </table>
+
+
 
   <div class="actions">
     <%= f.submit %>

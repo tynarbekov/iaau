@@ -1,4 +1,4 @@
-<%= form_for(computer_skill) do |f| %>
+<%= form_for [current_user,@computer_skill] do |f| %>
   <% if computer_skill.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(computer_skill.errors.count, "error") %> prohibited this computer_skill from being saved:</h2>
@@ -10,6 +10,19 @@
       </ul>
     </div>
   <% end %>
+
+
+  <table>
+    <tr>
+      <td><%= f.label :computer_skill_list_id %>: </td>
+      <td><%= f.collection_select :computer_skill_list_id,ComputerSkillList.order(:comp_skill),:id,:comp_skill,include_blank: true %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :skill_level_id %>: </td>
+      <td><%= f.collection_select :skill_level_id, SkillLevel.order(:id), :id, :level, include_blank: true %></td>
+    </tr>
+  </table>
+
 
   <div class="actions">
     <%= f.submit %>

@@ -4,7 +4,7 @@ class WorkExperiencesController < ApplicationController
   # GET /work_experiences
   # GET /work_experiences.json
   def index
-    @work_experiences = WorkExperience.all
+    @work_experiences = current_user.work_experiences.all
   end
 
   # GET /work_experiences/1
@@ -42,7 +42,7 @@ class WorkExperiencesController < ApplicationController
   def update
     respond_to do |format|
       if @work_experience.update(work_experience_params)
-        format.html { redirect_to @work_experience, notice: 'Work experience was successfully updated.' }
+        format.html { redirect_to user_work_experiences_path, notice: 'Work experience was successfully updated.' }
         format.json { render :show, status: :ok, location: @work_experience }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class WorkExperiencesController < ApplicationController
   def destroy
     @work_experience.destroy
     respond_to do |format|
-      format.html { redirect_to work_experiences_url, notice: 'Work experience was successfully destroyed.' }
+      format.html { redirect_to user_work_experiences_path, notice: 'Work experience was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class WorkExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_experience_params
-      params.fetch(:work_experience, {})
+      params.require(:work_experience).permit!
     end
 end

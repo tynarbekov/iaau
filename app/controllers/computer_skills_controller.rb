@@ -4,7 +4,9 @@ class ComputerSkillsController < ApplicationController
   # GET /computer_skills
   # GET /computer_skills.json
   def index
-    @computer_skills = ComputerSkill.all
+    @computer_skills = current_user.computer_skills.all
+    @computerSkillList = ComputerSkillList.all
+    @skillLevel = SkillLevel.all
   end
 
   # GET /computer_skills/1
@@ -28,7 +30,7 @@ class ComputerSkillsController < ApplicationController
 
     respond_to do |format|
       if @computer_skill.save
-        format.html { redirect_to @computer_skill, notice: 'Computer skill was successfully created.' }
+        format.html { redirect_to user_computer_skills_path, notice: 'Computer skill was successfully created.' }
         format.json { render :show, status: :created, location: @computer_skill }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class ComputerSkillsController < ApplicationController
   def update
     respond_to do |format|
       if @computer_skill.update(computer_skill_params)
-        format.html { redirect_to @computer_skill, notice: 'Computer skill was successfully updated.' }
+        format.html { redirect_to user_computer_skills_path, notice: 'Computer skill was successfully updated.' }
         format.json { render :show, status: :ok, location: @computer_skill }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class ComputerSkillsController < ApplicationController
   def destroy
     @computer_skill.destroy
     respond_to do |format|
-      format.html { redirect_to computer_skills_url, notice: 'Computer skill was successfully destroyed.' }
+      format.html { redirect_to user_computer_skills_path, notice: 'Computer skill was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class ComputerSkillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def computer_skill_params
-      params.fetch(:computer_skill, {})
+      params.require(:computer_skill).permit!
     end
 end

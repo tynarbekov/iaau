@@ -4,7 +4,9 @@ class ProffesionalSkillsController < ApplicationController
   # GET /proffesional_skills
   # GET /proffesional_skills.json
   def index
-    @proffesional_skills = ProffesionalSkill.all
+    @proffesional_skills = current_user.proffesional_skills.all
+    @proffesionalSkillList = ProffesionalSkillList.all
+    @skillLevel = SkillLevel.all
   end
 
   # GET /proffesional_skills/1
@@ -42,7 +44,7 @@ class ProffesionalSkillsController < ApplicationController
   def update
     respond_to do |format|
       if @proffesional_skill.update(proffesional_skill_params)
-        format.html { redirect_to @proffesional_skill, notice: 'Proffesional skill was successfully updated.' }
+        format.html { redirect_to user_proffesional_skills_path, notice: 'Proffesional skill was successfully updated.' }
         format.json { render :show, status: :ok, location: @proffesional_skill }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class ProffesionalSkillsController < ApplicationController
   def destroy
     @proffesional_skill.destroy
     respond_to do |format|
-      format.html { redirect_to proffesional_skills_url, notice: 'Proffesional skill was successfully destroyed.' }
+      format.html { redirect_to user_proffesional_skills_path(current_user), notice: 'Proffesional skill was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class ProffesionalSkillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proffesional_skill_params
-      params.fetch(:proffesional_skill, {})
+      params.require(:proffesional_skill).permit!
     end
 end

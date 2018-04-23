@@ -22,3 +22,11 @@ Language.create(language: 'kg')
 SkillLevel.create(level: 'pro')
 SkillLevel.create(level: 'middle')
 SkillLevel.create(level: 'junior')
+
+ComputerSkillList.create(comp_skill: 'git')
+ComputerSkillList.create(comp_skill: 'linux')
+ComputerSkillList.create(comp_skill: 'terminal')
+
+ComputerSkillList.create(comp_skill: 'git')
+ComputerSkillList.create(comp_skill: 'linux')
+ComputerSkillList.create(comp_skill: 'terminal')

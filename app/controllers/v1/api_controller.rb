@@ -6,11 +6,49 @@ class V1::ApiController < ApplicationController
   respond_to :json
 
   def createLanguage
-    lang = UserLanguage.create(user_id: current_user.id,language_id: params[:language],skill_level_id: params[:skillLevel])
-    url = '/users/' + current_user.id.to_s + '/languages/index'
+    url = '/users/' + current_user.id.to_s + '/user_languages'
+    if UserLanguage.create(user_id: current_user.id,language_id: params[:language],skill_level_id: params[:skillLevel])
+      redirect_to url
+    else
+      redirect_to url
+    end
 
-    redirect_to url
+  end
 
+  def createEducation
+    url = '/users/' + current_user.id.to_s + '/educations'
+    if Education.create(user_id: current_user.id,place:params[:place],period:params[:period],faculty:params[:faculty])
+      redirect_to url
+    else
+      redirect_to url
+    end
+  end
+
+  def createWorkExperience
+    url = '/users/' + current_user.id.to_s + '/work_experiences'
+    if WorkExperience.create(user_id: current_user.id,place:params[:place],work_period:params[:work_period],position:params[:position])
+      redirect_to url
+    else
+      redirect_to url
+    end
+  end
+
+  def createComputerSkill
+    url = '/users/' + current_user.id.to_s + '/computer_skills'
+    if ComputerSkill.create(user_id: current_user.id, skill_level_id:params[:skill_level_id], computer_skill_list_id:params[:computer_skill_list_id])
+      redirect_to url
+    else
+      redirect_to url
+    end
+  end
+
+  def createProffesionalSkill
+    url = '/users/' + current_user.id.to_s + '/proffesional_skills'
+    if ProffesionalSkill.create(user_id: current_user.id, skill_level_id:params[:skill_level_id], proffesional_skill_list_id:params[:proffesional_skill_list_id])
+      redirect_to url
+    else
+      redirect_to url
+    end
   end
 
   def getAllLanguages

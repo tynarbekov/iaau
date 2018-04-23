@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   namespace :v1 do
     # get 'api/getAllLanguages/:userId' => 'api#getAllLanguages'
     post '/api/createLanguage'
+    post '/api/createEducation'
+    post '/api/createWorkExperience'
+    post '/api/createComputerSkill'
+    post '/api/createProffesionalSkill'
+
   end
 # , :defaults => {:format => :json}
   resources :users do

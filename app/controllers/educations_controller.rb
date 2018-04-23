@@ -4,7 +4,7 @@ class EducationsController < ApplicationController
   # GET /educations
   # GET /educations.json
   def index
-    @educations = Education.all
+    @educations = current_user.educations.all
   end
 
   # GET /educations/1
@@ -42,7 +42,7 @@ class EducationsController < ApplicationController
   def update
     respond_to do |format|
       if @education.update(education_params)
-        format.html { redirect_to @education, notice: 'Education was successfully updated.' }
+        format.html { redirect_to user_educations_path, notice: 'Education was successfully updated.' }
         format.json { render :show, status: :ok, location: @education }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class EducationsController < ApplicationController
   def destroy
     @education.destroy
     respond_to do |format|
-      format.html { redirect_to educations_url, notice: 'Education was successfully destroyed.' }
+      format.html { redirect_to user_educations_path, notice: 'Education was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class EducationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def education_params
-      params.fetch(:education, {})
+      params.require(:education).permit!
     end
 end
