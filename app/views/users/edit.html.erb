@@ -34,6 +34,10 @@
         <td><%= f.date_field :date_of_birth %></td>
       </tr>
       <tr>
+        <td><%= f.label :AmsPassword %>: </td>
+        <td><%= f.password_field :reset_password_token %></td>
+      </tr>
+      <tr>
         <td><%= f.label :gender %>: </td>
         <td><%= f.collection_select :gender_id, Gender.order(:id), :id, :name, include_blank: true %></td>
       </tr>

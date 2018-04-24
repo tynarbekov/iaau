@@ -4,10 +4,6 @@
     <div class="col-sm-2 col-xs-12">
     </div>
     <div class="col-sm-7 col-xs-12">
-      <div class="col-sm-2 col-xs-12">
-         <%= image_tag @user.profile_image.url(:thumb)if @user.profile_image? %>
-
-      </div>
       <table>
         <tr>
           <td><strong>Username: </strong></td>
@@ -55,6 +51,7 @@
         <%= link_to "Work Experiencies" , user_work_experiences_path(@user), class: "btn btn-warning" %><br>
         <%= link_to "Computer Skills" , user_computer_skills_path(@user), class: "btn btn-warning" %><br>
         <%= link_to "Proffesional Skills" , user_proffesional_skills_path(@user), class: "btn btn-warning" %><br>
+        <%= link_to "Ams Data" , user_users_ams_data_path(@user), class: "btn btn-warning" %><br>
 
       <% end %>
     </div>

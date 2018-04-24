@@ -1,3 +1,7 @@
+require 'uri'
+require 'net/http'
+require 'digest'
+require 'json'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show,:edit, :update, :destroy]
 
@@ -16,6 +20,59 @@ class UsersController < ApplicationController
       render 'admin'
     end
   end
+
+
+  def ams_data
+
+      @ams_info = current_user.reset_password_token
+
+      uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{current_user.username}/", "#{@ams_info}")
+      puts uri
+
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (uri.scheme == 'https')
+      response = http.send_request('POST',uri.request_uri)
+      token1 = response.body
+      puts response.code
+
+      if response.code == "200"
+
+      token1 = JSON.parse(token1)
+      token = []
+
+      token1.each do |key, value|
+        token.push(value)
+      end
+      @token = token[0]
+
+      url = URI("https://ams.iaau.edu.kg/api/v1/marks/all")
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = (uri.scheme == 'https')
+
+      request = Net::HTTP::Get.new(url)
+      puts token[0]
+      request["bearer"] = token[0]
+      response = http.request(request)
+
+      @body = JSON.parse(response.body)
+      # @for_ams.studend_body = JSON.parse(response.body)
+
+      # @for_ams.studend_body.each do |key, value|
+        # puts key, value
+      # end
+
+    elsif response.code == "401"
+      flash.now[:notice] = "You enter invalid ID or PASSWORD"
+    else
+      flash.now[:notice] = "Enter ID and PASSWORD"
+      @err_msg = "Your password incorrect"
+    end
+  else
+  end
+
+  # end
 
   def new
     @user = User.new
@@ -44,7 +101,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_users_profile_path(@user), notice: 'Profile was successfully updated.' }
+        @user.reset_password_token = Digest::SHA256.hexdigest(@user.reset_password_token)
+        if @user.save
+          format.html { redirect_to user_users_profile_path(@user), notice: 'Profile was successfully updated.' }
+        else
+          format.html { redirect_to user_users_profile_path(@user), notice: 'Profile was successfully updated without ams data.' }
+        end
         # format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }

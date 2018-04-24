@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
     # post 'language/destroy'
     # post '/languages/update/:langId' => 'languages#update'
+    get 'users/ams_data'
     get 'users/profile'
     get 'user/student'
     get 'user/teacher'
