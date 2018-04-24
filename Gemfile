@@ -14,6 +14,12 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 # end
 
+# for upload image
+gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
+gem 'fog'
+#
+
 gem 'rails', '~> 5.0.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

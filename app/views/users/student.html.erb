@@ -4,6 +4,10 @@
     <div class="col-sm-2 col-xs-12">
     </div>
     <div class="col-sm-7 col-xs-12">
+      <div class="col-sm-2 col-xs-12">
+         <%= image_tag @user.profile_image.url(:thumb)if @user.profile_image? %>
+
+      </div>
       <table>
         <tr>
           <td><strong>Username: </strong></td>

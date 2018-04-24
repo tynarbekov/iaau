@@ -1,5 +1,9 @@
 <div class="container content">
   <%= form_for (@user),html: {multipart: true} do |f| %>
+
+      <div>
+      <%= f.file_field :profile_image %>
+    </div>
     <table>
       <tr>
         <td><%= f.label :name %>: </td>
