@@ -1,7 +1,3 @@
-require 'uri'
-require 'net/http'
-require 'digest'
-require 'json'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show,:edit, :update, :destroy]
 
@@ -46,7 +42,7 @@ class UsersController < ApplicationController
       end
       @token = token[0]
 
-      url = URI("https://ams.iaau.edu.kg/api/v1/marks/all")
+      url = URI("https://ams.iaau.edu.kg/api/v1/studentinfo")
 
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = (uri.scheme == 'https')
@@ -69,7 +65,6 @@ class UsersController < ApplicationController
       flash.now[:notice] = "Enter ID and PASSWORD"
       @err_msg = "Your password incorrect"
     end
-  else
   end
 
   # end

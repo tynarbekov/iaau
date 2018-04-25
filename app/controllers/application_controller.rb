@@ -1,3 +1,7 @@
+require 'uri'
+require 'net/http'
+require 'digest'
+require 'json'
 class ApplicationController < ActionController::Base
 
   # protect_from_forgery prepend: true

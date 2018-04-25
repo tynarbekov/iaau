@@ -25,14 +25,66 @@ class User < ApplicationRecord
 # default role
   private
    def set_default_role
-     puts "DEBUG: PROFILE ROLE SET"
-     puts UserRole.find_by_name("student").id
      if self.user_role_id == nil
-       self.user_role_id = UserRole.find_by_name("student").id
-       # self.group_id = Group.find(1).id
-       # self.gender_id = Gender.find(1).id
+       settingUser
+       puts "LLLLLENNN"
+       puts self.username.length
+       if self.username.length < 11
+         self.user_role_id = UserRole.find_by_name("teacher").id
+       else
+         self.user_role_id = UserRole.find_by_name("student").id
+       end
      end
-    #  self.profile_role_id ||= ProfileRole.find_by_role('student').id
    end
+
+   def settingUser
+         @user_password = Digest::SHA256.hexdigest("6852623452")
+         uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{self.username}/", "#{@user_password}")
+
+         http = Net::HTTP.new(uri.host, uri.port)
+         http.use_ssl = (uri.scheme == 'https')
+         response = http.send_request('POST',uri.request_uri)
+         token1 = response.body
+         puts response.code
+
+         if response.code == "200"
+
+           token1 = JSON.parse(token1)
+           token = []
+
+           token1.each do |key, value|
+             token.push(value)
+           end
+           @token = token[0]
+
+           url = URI("https://ams.iaau.edu.kg/api/v1/studentinfo")
+
+           http = Net::HTTP.new(url.host, url.port)
+           http.use_ssl = (uri.scheme == 'https')
+
+           request = Net::HTTP::Get.new(url)
+           request["bearer"] = token[0]
+
+           response2 = http.request(request)
+             if response2.code == "200"
+               @body = JSON.parse(response2.body)
+               self.name = @body["Name"]
+               self.surname = @body["Surname"]
+               self.phone = @body["Phone"]
+               self.email = @body["Email"]
+               self.gender_id = Gender.find_by_name(@body["Gender"]).id
+               self.group_id = Group.find_by_name(@body["Group"]).id
+               self.date_of_birth = @body["Birth Date"]
+            end
+
+           elsif response2.code == "401"
+             flash.now[:notice] = "You enter invalid ID or PASSWORD"
+           else
+             flash.now[:notice] = "Enter ID and PASSWORD"
+           @err_msg = "Your password incorrect"
+
+       end
+   end
+
 
 end
