@@ -5,8 +5,6 @@ class UsersController < ApplicationController
     student = UserRole.find_by_name('student').id
     teacher = UserRole.find_by_name('teacher').id
     admin = UserRole.find_by_name('admin').id
-    puts "STUDENT"
-    puts student
     @user = current_user
     if current_user.user_role_id == student
       render 'student'
@@ -23,16 +21,14 @@ class UsersController < ApplicationController
       @ams_info = current_user.reset_password_token
 
       uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{current_user.username}/", "#{@ams_info}")
-      puts uri
 
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == 'https')
       response = http.send_request('POST',uri.request_uri)
       token1 = response.body
-      puts response.code
 
-      if response.code == "200"
+    if response.code == "200"
 
       token1 = JSON.parse(token1)
       token = []
@@ -42,32 +38,97 @@ class UsersController < ApplicationController
       end
       @token = token[0]
 
-      url = URI("https://ams.iaau.edu.kg/api/v1/studentinfo")
+      getYear = current_user.address.split('-')
+      getYear = getYear[0].to_i
+      getDiff = Time.current.year - getYear
 
-      http = Net::HTTP.new(url.host, url.port)
+      @studentGpa = []
+
+
+
+      urlMarks = URI("https://ams.iaau.edu.kg/api/v1/marks/all")
+
+      http = Net::HTTP.new(urlMarks.host, urlMarks.port)
       http.use_ssl = (uri.scheme == 'https')
 
-      request = Net::HTTP::Get.new(url)
-      puts token[0]
-      request["bearer"] = token[0]
-      response = http.request(request)
+      requestMarks = Net::HTTP::Get.new(urlMarks)
+      requestMarks["bearer"] = token[0]
+      responseMarks = http.request(requestMarks)
 
-      @body = JSON.parse(response.body)
-      # @for_ams.studend_body = JSON.parse(response.body)
+      if responseMarks.code == "200"
+        @marks = JSON.parse(responseMarks.body)
+        
+      else
+        @marks = []
+      end
 
-      # @for_ams.studend_body.each do |key, value|
-        # puts key, value
-      # end
 
-    elsif response.code == "401"
-      flash.now[:notice] = "You enter invalid ID or PASSWORD"
+
+
+
+      for i in 1.. getDiff
+
+        urlFall = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear.to_s}-#{(getYear+1).to_s}/fall")
+
+        @nowTime = Time.new
+
+        if i <= getDiff && 1 <= @nowTime.month
+          puts "YES IS BIGGER"
+          urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/spring")
+        else
+          urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/sring")
+        end
+
+
+        getYear += 1
+
+        httpFall = Net::HTTP.new(urlFall.host, urlFall.port)
+        httpSpring = Net::HTTP.new(urlSpring.host, urlSpring.port)
+
+        http.use_ssl = (uri.scheme == 'https')
+
+        requestFall = Net::HTTP::Get.new(urlFall)
+        requestSpring = Net::HTTP::Get.new(urlSpring)
+
+        requestFall["bearer"] = token[0]
+        requestSpring["bearer"] = token[0]
+
+        responseFall = http.request(requestFall)
+        responseSpring = http.request(requestSpring)
+
+        if responseFall.code == "200"
+          @studentGpa.push(JSON.parse(responseFall.body))
+          if responseSpring.code == "200"
+            @studentGpa.push(JSON.parse(responseSpring.body))
+          end
+        else
+          @body = []
+          puts "Invalid URL"
+          flash.now[:notice] = "You enter invalid ID or PASSWORD"
+        end # inner IF
+      end #For Loop
+      @totalGpa = []
+
+      for i in 0... @studentGpa.length
+        @sum = 0
+        @count = 0
+        @studentGpa[i].each do |s|
+          s[1].each do |a|
+            f = (a["Final"].to_i * 60)/100
+            m = (a["Midterm"].to_i * 40)/100
+            @sum += f + m
+            @count += 1
+          end
+          @totalGpa.push(@sum/@count)
+        end
+      end
+      puts @totalGpa
     else
-      flash.now[:notice] = "Enter ID and PASSWORD"
-      @err_msg = "Your password incorrect"
-    end
-  end
+      flash.now[:notice] = "You enter invalid ID or PASSWORD"
+    end#main IF
 
-  # end
+  end #def
+
 
   def new
     @user = User.new

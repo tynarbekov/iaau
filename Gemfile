@@ -20,6 +20,10 @@ gem "mini_magick"
 gem 'fog'
 #
 
+# for create chart
+gem 'chartkick'
+#
+
 gem 'rails', '~> 5.0.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

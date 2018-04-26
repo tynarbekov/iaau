@@ -1,4 +1,10 @@
 <h1>User infomation from AMS</h1>
-<% @body.each do |s| %>
-  <%= s %><br>
+<% @totalGpa.each do |s| %>
+<%= s %><br>
+<% end %>
+<h1>My all marks</h1>
+<% @marks.each do |mark| %>
+  <% mark[1].each do |m| %>
+    <%= m %><br>
+  <% end %>
 <% end %>
