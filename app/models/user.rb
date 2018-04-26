@@ -74,6 +74,8 @@ class User < ApplicationRecord
                self.email = @body["Email"]
                self.address = @body["Enter year"]
                self.gender_id = Gender.find_by_name(@body["Gender"]).id
+               # self.group_id = "mat"
+
                self.group_id = Group.find_by_name(@body["Group"]).id
                self.date_of_birth = @body["Birth Date"]
             end
