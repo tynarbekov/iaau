@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :subjects
+  resources :curriculums
   devise_for :users, :path => 'users'
 
 
