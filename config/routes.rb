@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   devise_for :users, :path => 'users'
 
+
   namespace :v1 do
     # get 'api/getAllLanguages/:userId' => 'api#getAllLanguages'
+    # post '/api/search'
     post '/api/createLanguage'
     post '/api/createEducation'
     post '/api/createWorkExperience'
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
 
   end
 # , :defaults => {:format => :json}
+  resources :groups
+
   resources :users do
     # get 'languages/index'
     # resources :languages
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
 
     # post 'language/destroy'
     # post '/languages/update/:langId' => 'languages#update'
+    get 'users/search'
     get 'users/ams_data'
     get 'users/profile'
     get 'user/student'

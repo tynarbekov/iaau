@@ -1,1 +1,97 @@
-<%= current_user.username %>
+<%= current_user.username %><br>
+<h3>Search</h3>
+
+<div class="">
+  By Name: <input type="radio" name="asd" value="1" id="name" onclick="hide(this.value)" checked >
+  By Proffesional Skills: <input type="radio" name="asd" value="2" id="skill" onclick="hide(this.value)" >
+  By Computer Skills: <input type="radio" name="asd" value="3" id="comp_skill" onclick="hide(this.value)" >
+
+</div>
+
+<%= form_tag user_users_search_path,  method: :get do %>
+
+  <%= label :name, "Level",id: 'level_name' %>
+  <%= select_tag :level, options_for_select(@level), id: 'level_id', class: "level_id  " %>
+
+  <%= label :skill, "Proffesional Skill", id: 'skill_name' %>
+  <%= text_field_tag :skill, "",id: 'skill_id', class: "form-control input-md" %>
+
+  <%= label :comp, "Computer Skill", id: 'comp_name' %>
+  <%= text_field_tag :comp, "",id: 'comp_id', class: "form-control input-md" %>
+
+  <%= label :name, "Name", id: 'name_name' %>
+  <%= text_field_tag :name, "",id: 'name_id', class: "form-control input-md" %>
+
+  <%= button_tag 'Search', class: "btn btn-primary input-md" %>
+<% end %>
+
+
+<h3>Students</h3>
+<% @students.each do |s| %>
+<%= link_to  "#{s.name}", user_path(s.id) %><br>
+<% end %>
+<h3>Teachers</h3>
+<% @teachers.each do |s| %>
+  <%= link_to  "#{s.username}", user_path(s.id) %><br>
+<% end %>
+<h3>Groups</h3>
+<% @groups.each do |s| %>
+  <%= link_to  "#{s.name}", group_path(s.id) %><br>
+
+<% end %>
+<script type="text/javascript">
+  $('#name').click();
+
+  function hide(click){
+    if (click==1) {
+      $('#level_id').hide();
+      $('#level_name').hide();
+
+      $('#skill_id').hide();
+      $('#skill_name').hide();
+
+      $('#comp_name').hide();
+      $('#comp_id').hide();
+
+      $('#name_id').show();
+      $('#name_name').show();
+
+    }
+    else if (click==2) {
+      $('#level_id').show();
+      $('#level_name').show();
+
+      $('#skill_id').show();
+      $('#skill_name').show();
+
+      $('#name_id').hide();
+      $('#name_name').hide();
+
+      $('#comp_name').hide();
+      $('#comp_id').hide();
+
+    }
+
+    else if (click==3) {
+      $('#level_id').show();
+      $('#level_name').show();
+
+      $('#comp_name').show();
+      $('#comp_id').show();
+
+      $('#skill_id').hide();
+      $('#skill_name').hide();
+
+      $('#name_id').hide();
+      $('#name_name').hide();
+
+
+    }
+
+  }
+
+
+
+
+
+</script>

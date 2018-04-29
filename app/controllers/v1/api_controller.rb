@@ -66,8 +66,43 @@ class V1::ApiController < ApplicationController
     respond_to do |format|
       format.json { render :json => data }
     end
-
-
   end
+
+  def search
+    # searchBy = params[:searchBy]
+    # searchValue = params[:searchValue]
+    #
+    # if searchBy == 'name'
+    #   @result = User.find_by_name(searchValue)
+    #   render json: @result
+    # elsif searchBy == 'lang'
+    #   searchValue = searchValue.capitalize
+    #   proff_skill = ProffesionalSkillList.where(proff_skill: searchValue)
+    #   puts proff_skill.proff_skill
+    #   @result =ProffesionalSkill.where(proffesional_skill_list_id: proff_skill.to_i)
+    #   render json: @result
+    # elsif searchBy == 'comp'
+    #   render json: searchBy
+    # else
+    #   render json: "error"
+    # end
+    #
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end

@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many   :educations
   has_many   :work_experiences
   has_many   :user_languages
-
+  has_one :group
   belongs_to :user_role
   # belongs_to :group
   # belongs_to :gender
@@ -26,19 +26,19 @@ class User < ApplicationRecord
   private
    def set_default_role
      if self.user_role_id == nil
-       settingUser
-       puts "LLLLLENNN"
-       puts self.username.length
-       if self.username.length < 11
+       if self.username.length < 11 && self.username != "admin"
          self.user_role_id = UserRole.find_by_name("teacher").id
+       elsif self.username == "admin"
+         self.user_role_id = UserRole.find_by_name("admin").id
        else
          self.user_role_id = UserRole.find_by_name("student").id
+         settingUser
        end
      end
    end
 
    def settingUser
-         @user_password = Digest::SHA256.hexdigest("6852623452")
+         @user_password = Digest::SHA256.hexdigest("5382463a")
          uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{self.username}/", "#{@user_password}")
 
          http = Net::HTTP.new(uri.host, uri.port)
@@ -80,7 +80,7 @@ class User < ApplicationRecord
                self.date_of_birth = @body["Birth Date"]
             end
 
-           elsif response2.code == "401"
+           elsif response.code == "401"
              flash.now[:notice] = "You enter invalid ID or PASSWORD"
            else
              flash.now[:notice] = "Enter ID and PASSWORD"

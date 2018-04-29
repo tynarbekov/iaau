@@ -1,0 +1,8 @@
+<h3>Advisor of Group <%= @group.name %> </h3>
+<h3> <%= @user.username %></h3>
+<h3>Students this group</h3>
+<% @students.each do |student| %>
+  <%= student.name %><br>
+<% end  %>
+<%= link_to "Update", edit_group_path(@group) %><br>
+<%= link_to "Delete", group_path(@group), method: :delete,data: { confirm: 'Are you sure?' } %><br>

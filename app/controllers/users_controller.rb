@@ -11,7 +11,61 @@ class UsersController < ApplicationController
     elsif current_user.user_role_id == teacher
       render 'teacher'
     elsif current_user.user_role_id == admin
+      @teachers = User.where(user_role_id: UserRole.find_by_name('teacher').id)
+      @students = User.where(user_role_id: UserRole.find_by_name('student').id )
+      @level = SkillLevel.all.map { |level| [level.level] }
+      @level.unshift('#')
+      @groups = Group.all()
       render 'admin'
+    end
+  end
+
+
+  def search
+    name = params[:name].capitalize
+    level = params[:level]
+    skill = params[:skill]
+    comp = params[:comp]
+    skill = skill.split.map(&:capitalize).join(',')
+    skill = skill.split(",")
+
+    comp = comp.split.map(&:capitalize).join(',')
+    comp = comp.split(",")
+
+    if level != "#"
+      lId = SkillLevel.where(level: level)
+    end
+
+    if name.length > 0 && comp.length <= 0
+      @result = User.where(name: name)
+    elsif skill.length > 0
+      pIds = ProffesionalSkillList.where(proff_skill: skill)
+      pIds = pIds.map{|p| p.id}
+      if lId != nil
+        uIds = ProffesionalSkill.where(proffesional_skill_list_id: pIds, skill_level_id: lId[0].id )
+      else
+        uIds = ProffesionalSkill.where(proffesional_skill_list_id: pIds )
+      end
+      uIds = uIds.map{|p| p.user_id}
+      @result = User.where(id: uIds )
+    elsif comp.length > 0 && skill.length <= 0
+      puts "COMP"
+      puts comp
+      pIds = ComputerSkillList.where(comp_skill: comp)
+      pIds = pIds.map{|p| p.id}
+      puts "PIDS"
+      puts pIds
+      if lId != nil
+        uIds = ComputerSkill.where(computer_skill_list_id: pIds, skill_level_id: lId[0].id )
+      else
+        uIds = ComputerSkill.where(computer_skill_list_id: pIds )
+      end
+      uIds = uIds.map{|p| p.user_id}
+      puts "IDS"
+      puts uIds
+      @result = User.where(id: uIds )
+    else
+      @result = "Incorrect Search"
     end
   end
 

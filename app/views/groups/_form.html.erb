@@ -1,0 +1,17 @@
+<%= form_for(group) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :user_id %><br />
+    <%= f.collection_select :user_id, @user.order(:id), :id, :username, include_blank: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>

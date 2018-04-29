@@ -1,0 +1,7 @@
+<% if(@result.class ==String) %>
+<%= "YES" %>
+<% else %>
+  <% @result.each do |s| %>
+    <%= s.name %><br>
+  <% end %>
+<% end %>

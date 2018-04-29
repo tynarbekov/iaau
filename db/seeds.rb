@@ -2,6 +2,9 @@ UserRole.delete_all
 Gender.delete_all
 Group.delete_all
 Language.delete_all
+SkillLevel.delete_all
+ComputerSkillList.delete_all
+ProffesionalSkillList.delete_all
 
 UserRole.create(name: 'student')
 UserRole.create(name: 'teacher')
@@ -33,6 +36,6 @@ ComputerSkillList.create(comp_skill: 'git')
 ComputerSkillList.create(comp_skill: 'linux')
 ComputerSkillList.create(comp_skill: 'terminal')
 
-ComputerSkillList.create(comp_skill: 'git')
-ComputerSkillList.create(comp_skill: 'linux')
-ComputerSkillList.create(comp_skill: 'terminal')
+ProffesionalSkillList.create(proff_skill: 'Ruby')
+ProffesionalSkillList.create(proff_skill: 'Java')
+ProffesionalSkillList.create(proff_skill: 'Javascript')
