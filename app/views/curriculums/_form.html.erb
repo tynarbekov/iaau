@@ -1,4 +1,4 @@
-<%= form_for(curriculum) do |f| %>
+<%= form_for [current_user,curriculum] do |f| %>
   <% if curriculum.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(curriculum.errors.count, "error") %> prohibited this curriculum from being saved:</h2>

@@ -42,7 +42,7 @@ class CurriculumsController < ApplicationController
   def update
     respond_to do |format|
       if @curriculum.update(curriculum_params)
-        format.html { redirect_to @curriculum, notice: 'Curriculum was successfully updated.' }
+        format.html { redirect_to user_curriculums_path(current_user), notice: 'Curriculum was successfully updated.' }
         format.json { render :show, status: :ok, location: @curriculum }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CurriculumsController < ApplicationController
   def destroy
     @curriculum.destroy
     respond_to do |format|
-      format.html { redirect_to curriculums_url, notice: 'Curriculum was successfully destroyed.' }
+      format.html { redirect_to user_curriculums_path(current_user), notice: 'Curriculum was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

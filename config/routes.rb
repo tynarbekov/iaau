@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
 
 
-  resources :subjects
-  resources :curriculums
   devise_for :users, :path => 'users'
 
 
   namespace :v1 do
     # get 'api/getAllLanguages/:userId' => 'api#getAllLanguages'
     # post '/api/search'
+    post '/api/createSubject'
     post '/api/createLanguage'
     post '/api/createEducation'
     post '/api/createWorkExperience'
@@ -25,6 +24,8 @@ Rails.application.routes.draw do
     # get 'language/edit' => 'language#edit'
     # get 'language/destroy/:id' => 'language#delete'
     # resources :languages
+    resources :subjects
+    resources :curriculums
     resources :user_languages
     resources :computer_skills
     resources :educations

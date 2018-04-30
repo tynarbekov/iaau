@@ -1,27 +1,43 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Curriculums</h1>
+<% @curriculums.each do |curriculum| %>
+    <%= curriculum.name %>
+    <%= curriculum.period %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <%= link_to 'Edit', edit_user_curriculum_path(current_user,curriculum) %>
+    <%= link_to 'Destroy', user_curriculum_path(current_user,curriculum), method: :delete, data: { confirm: 'Are you sure?' } %><br>
+<% end %>
+<h3>Add Subjects for Curriculum</h3>
+<div class="col-md-7">
+    <div class="card">
+      <div class="card-body">
 
-  <tbody>
-    <% @curriculums.each do |curriculum| %>
-      <tr>
-        <td><%= curriculum.name %></td>
-        <td><%= link_to 'Show', curriculum %></td>
-        <td><%= link_to 'Edit', edit_curriculum_path(curriculum) %></td>
-        <td><%= link_to 'Destroy', curriculum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="card">
+        <ul class="list-group list-group-flush">
+        <h2 class="my-0">Subject</h2>
+        <form name="createLanguage" method="post" action="/v1/api/createSubject">
 
-<br>
+          <div class="form-group">
+          <label for="newLanguage">Choose</label>
+          <select class="" name="curriculum_id">
+            <% @curriculums.each do |cur| %>
+          <option value="<%= cur.id %>"><%= cur.name %>,<%= cur.period %></option>
+          <% end %>
+          </select><br>
+          </div>
+        <div class="form-group">
+          Code:   <input type="text" name="code" value=""><br>
+          Name:  <input type="text" name="name" value=""><br>
+          Credit: <input type="text" name="credit" value=""><br>
+          Hours: <input type="text" name="hours" value=""><br>
+        </div>
+        <button class="btn btn-warning btn-lg" type="submit" >Create</button>
+        </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Curriculum', new_curriculum_path %>
+<% @subjects = Subject.all %>

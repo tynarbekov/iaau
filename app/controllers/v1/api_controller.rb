@@ -51,6 +51,15 @@ class V1::ApiController < ApplicationController
     end
   end
 
+  def createSubject
+    url = '/users/' + current_user.id.to_s + '/curriculums'
+    if Subject.create(curriculum_id: params[:curriculum_id],code:params[:code],name: params[:name],credit: params[:credit], hours: params[:hours])
+      redirect_to url
+    else
+      redirect_to url
+    end
+  end
+
   def getAllLanguages
     user_id = current_user.id
     userToLang = UserLanguage.where(user_id: user_id)

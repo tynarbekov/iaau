@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420183024) do
+ActiveRecord::Schema.define(version: 20180429230321) do
 
   create_table "computer_skill_lists", force: :cascade do |t|
     t.string   "comp_skill"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20180420183024) do
     t.index ["computer_skill_list_id"], name: "index_computer_skills_on_computer_skill_list_id"
     t.index ["skill_level_id"], name: "index_computer_skills_on_skill_level_id"
     t.index ["user_id"], name: "index_computer_skills_on_user_id"
+  end
+
+  create_table "curriculums", force: :cascade do |t|
+    t.string   "name"
+    t.string   "period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "educations", force: :cascade do |t|
@@ -90,6 +97,17 @@ ActiveRecord::Schema.define(version: 20180420183024) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["user_id"], name: "index_skills_on_user_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.integer  "credit"
+    t.integer  "hours"
+    t.integer  "curriculum_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["curriculum_id"], name: "index_subjects_on_curriculum_id"
   end
 
   create_table "user_languages", force: :cascade do |t|

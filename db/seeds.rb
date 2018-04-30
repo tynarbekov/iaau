@@ -39,3 +39,18 @@ ComputerSkillList.create(comp_skill: 'terminal')
 ProffesionalSkillList.create(proff_skill: 'Ruby')
 ProffesionalSkillList.create(proff_skill: 'Java')
 ProffesionalSkillList.create(proff_skill: 'Javascript')
+
+Curriculum.create(name: "First",period: "spring")
+Curriculum.create(name: "First",period: "fall")
+
+
+Curriculum.create(name: "Second",period: "spring")
+Curriculum.create(name: "Second",period: "fall")
+
+Curriculum.create(name: "Third",period: "spring")
+Curriculum.create(name: "Third",period: "fall")
+
+Curriculum.create(name: "Four",period: "spring")
+Curriculum.create(name: "Four",period: "fall")
+
+#
