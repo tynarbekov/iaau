@@ -54,10 +54,9 @@
 # Curriculum.create(name: "Four",period: "fall")
 #
 # #
-
-Subject.create(curriculum_id: 1,code: "CS100",name: "Introductions to Engineering and CS",credit: 4,hours:4 )
-Subject.create(curriculum_id: 1,code: "CS101",name: "PL-1",credit: 6,hours:4 )
-Subject.create(curriculum_id: 1,code: "CS103",name: "Calculus-1",credit: 4,hours:4 )
+Subject.create(curriculum_id: 1,code: "CS100",name: "Introduction to Engineering & CS",credit: 4,hours:4 )
+Subject.create(curriculum_id: 1,code: "CS101",name: "Programming Languages - 1 ",credit: 6,hours:4 )
+Subject.create(curriculum_id: 1,code: "CS103",name: "Calculus - 1",credit: 4,hours:4 )
 Subject.create(curriculum_id: 1,code: "CS105",name: "Physics",credit: 4,hours:4 )
 
 

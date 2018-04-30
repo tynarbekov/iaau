@@ -96,9 +96,8 @@ class UsersController < ApplicationController
      getDiff = Time.current.year - getYear
 
      @studentGpa = []
-
-
-
+     @fall = []
+     @spring = []
      urlMarks = URI("https://ams.iaau.edu.kg/api/v1/marks/all")
 
      http = Net::HTTP.new(urlMarks.host, urlMarks.port)
@@ -115,47 +114,61 @@ class UsersController < ApplicationController
        @marks = []
      end
 
-     for i in 1.. getDiff
+       for i in 1.. getDiff
+         urlFall = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear.to_s}-#{(getYear+1).to_s}/fall")
+         @nowTime = Time.new
+         if i <= getDiff && 1 <= @nowTime.month && @nowTime.month <= 8
+           urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/spring")
+         else
+           urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/spring")
+         end
 
-       urlFall = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear.to_s}-#{(getYear+1).to_s}/fall")
 
-       @nowTime = Time.new
 
-       if i <= getDiff && 1 <= @nowTime.month
-         puts "YES IS BIGGER"
-         urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/spring")
-       else
-         urlSpring = URI("https://ams.iaau.edu.kg/api/v1/marks/#{getYear}-#{getYear+1}/sring")
+         # def compare(url,token)
+         #   http = Net::HTTP.new(url.host, url.port)
+         #   http.use_ssl = (uri.scheme == 'https')
+         #
+         # end
+
+         getYear += 1
+         httpFall = Net::HTTP.new(urlFall.host, urlFall.port)
+         httpSpring = Net::HTTP.new(urlSpring.host, urlSpring.port)
+
+         http.use_ssl = (uri.scheme == 'https')
+
+         requestFall = Net::HTTP::Get.new(urlFall)
+         requestSpring = Net::HTTP::Get.new(urlSpring)
+
+         requestFall["bearer"] = token[0]
+         requestSpring["bearer"] = token[0]
+
+         responseFall = http.request(requestFall)
+         responseSpring = http.request(requestSpring)
+
+
+         if responseFall.code == "200"
+           @studentGpa.push(JSON.parse(responseFall.body))
+           @fall.push(JSON.parse(responseFall.body))
+           if responseSpring.code == "200"
+             @spring.push(JSON.parse(responseSpring.body))
+             @studentGpa.push(JSON.parse(responseSpring.body))
+           end
+         else
+           @body = []
+           puts "Invalid URL"
+           flash.now[:notice] = "You enter invalid ID or PASSWORD"
+         end # inner IF
+       end #For Loop
+
+       if i == getDiff
+         if 1 <= @nowTime.month && @nowTime.month < 8
+           compare(@spring,"spring")
+         elsif @nowTime.month > 8 && @nowTime.month < 13
+           compare(@spring,"fall")
+         end
        end
 
-
-       getYear += 1
-
-       httpFall = Net::HTTP.new(urlFall.host, urlFall.port)
-       httpSpring = Net::HTTP.new(urlSpring.host, urlSpring.port)
-
-       http.use_ssl = (uri.scheme == 'https')
-
-       requestFall = Net::HTTP::Get.new(urlFall)
-       requestSpring = Net::HTTP::Get.new(urlSpring)
-
-       requestFall["bearer"] = token[0]
-       requestSpring["bearer"] = token[0]
-
-       responseFall = http.request(requestFall)
-       responseSpring = http.request(requestSpring)
-
-       if responseFall.code == "200"
-         @studentGpa.push(JSON.parse(responseFall.body))
-         if responseSpring.code == "200"
-           @studentGpa.push(JSON.parse(responseSpring.body))
-         end
-       else
-         @body = []
-         puts "Invalid URL"
-         flash.now[:notice] = "You enter invalid ID or PASSWORD"
-       end # inner IF
-     end #For Loop
      @totalGpa = []
 
      for i in 0... @studentGpa.length
@@ -171,15 +184,46 @@ class UsersController < ApplicationController
          @totalGpa.push(@sum/@count)
        end
      end
-     puts @totalGpa
+     # Create Chart
+     chart(@totalGpa)
    else
      flash.now[:notice] = "You enter invalid ID or PASSWORD"
    end#main IF
-
-    # Create Chart
-      chart(@totalGpa)
-
   end #def
+
+  def compare(data,period)
+    @failSub = []
+    @passSub = []
+    for i in 0...data.length
+      data[i].each do |d|
+        d[1].each do |a|
+          sum = 0
+          sum = ((a['Midterm'].to_i * 40)/100) + ((a['Final'].to_i * 60)/100)
+          if sum < 50 || a['Final'].to_i < 50
+            @failSub.push(a['Subject'])
+          else
+            @passSub.push(a['Subject'])
+          end
+        end
+      end
+    end
+    @curriculumSub = Subject.where(curriculum_id: [2,4,6,8])
+    @toTake = []
+    @curriculumSub.zip(@passSub).each do |name1,name2|
+      if name1!=name2
+        @toTake.push(name1)
+      end
+    end
+    @total = (@toTake + @failSub)
+    @total2 = @total - (@toTake & @failSub)
+    # for i in 0...@curriculumSub.length
+    #   for j in i...@passSub.length
+    #     if @curriculumSub[i].name != @passSub[j]
+    #       @toTake.push(@curriculumSub[i].name)
+    #     end
+    #   end
+    # end
+  end
 
 
   def chart(arr)

@@ -1,4 +1,6 @@
 <div class=""id="chartContainer">
   <%= @chart.render() %>
 </div>
-<%=  %>
+<% @total.each do |d| %>
+  <%= d %><br>
+<% end %>
