@@ -39,5 +39,51 @@
     </div>
   </div>
 </div>
+<div class="">
 
-<% @subjects = Subject.all %>
+  <% @curriculums.each do |c| %>
+    <% @parts = @subjects.where(curriculum_id: c.id) %><br>
+      <%= c.name %>  <%= c.period %><br>
+      <% @parts.each do |s| %>
+        <%= s.code %> | <%= s.name %> | <%= s.credit %> | <%= s.hours %> | <%= link_to 'Edit', edit_user_subject_path(current_user,s) %>
+        <%= link_to 'Destroy', user_subject_path(current_user,s),method: :delete, data: { confirm: 'Are you sure?' } %><br>
+    <% end %>
+  <% end %>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

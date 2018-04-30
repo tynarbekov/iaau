@@ -1,4 +1,4 @@
-<%= form_for(subject) do |f| %>
+<%= form_for [current_user,@subject] do |f| %>
   <% if subject.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
@@ -32,8 +32,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :references %>
-    <%= f.text_field :references %>
+    <%= f.label :curriculum_id %>
+    <%= f.collection_select :curriculum_id, Curriculum.order(:id), :id, :label_for_select, include_blank: true %>
   </div>
 
   <div class="actions">
