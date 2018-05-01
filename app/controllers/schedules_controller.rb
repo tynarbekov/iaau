@@ -4,12 +4,25 @@ class SchedulesController < ApplicationController
   # GET /schedules
   # GET /schedules.json
   def index
+    @schedule = Schedule.new
     @schedules = Schedule.all
+    @user = User.where(user_role_id:2)
+    @weeks = Week.all
+    @groups = Group.all
+
+    # @monday = []
+
+    # for i in 0...@weeks.length
+    #   for j in 0...@groups.length
+    #
+    #   end
+    # end
   end
 
   # GET /schedules/1
   # GET /schedules/1.json
   def show
+
   end
 
   # GET /schedules/new
@@ -19,6 +32,10 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/1/edit
   def edit
+    @schedules = Schedule.all
+    @user = User.where(user_role_id: 2)
+    @weeks = Week.all
+    @groups = Group.all
   end
 
   # POST /schedules
@@ -28,7 +45,7 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
+        format.html { redirect_to user_schedules_path(current_user), notice: 'Schedule was successfully created.' }
         format.json { render :show, status: :created, location: @schedule }
       else
         format.html { render :new }
@@ -42,7 +59,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
+        format.html { redirect_to user_schedules_path(current_user), notice: 'Schedule was successfully updated.' }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit }
@@ -69,6 +86,6 @@ class SchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
-      params.require(:schedule).permit(:startH, :startM, :endH, :endM)
+      params.require(:schedule).permit!
     end
 end

@@ -10,8 +10,10 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @user = User.find(@group.user_id)
-    @students = @group.users
+    if User.exists?(@group.user_id)
+      @user = User.find(@group.user_id)
+      @students = @group.users
+    end
   end
 
   # GET /groups/new

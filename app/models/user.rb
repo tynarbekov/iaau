@@ -22,10 +22,15 @@ class User < ApplicationRecord
   # belongs_to :gender
 
 
+  def teachers
+    "#{name} #{surname} #{username} "
+  end
+
 
 
 # default role
   private
+
    def set_default_role
      if self.user_role_id == nil
        if self.username.length < 11 && self.username != "admin"

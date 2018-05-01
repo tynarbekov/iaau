@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
 
-  resources :schedules
   devise_for :users, :path => 'users'
 
 
@@ -21,6 +20,8 @@ Rails.application.routes.draw do
   resources :groups
 
   resources :users do
+    resources :schedules
+    
     # get 'languages/index'
     # resources :languages
     # get 'language/edit' => 'language#edit'

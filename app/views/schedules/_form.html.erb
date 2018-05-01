@@ -1,15 +1,30 @@
-<%= form_for(schedule) do |f| %>
-  <% if schedule.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+<%= form_for [current_user,@schedule] do |f| %>
 
-      <ul>
-      <% schedule.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="field">
+  <%= f.label :week_id %>
+  <%= f.collection_select :week_id,Week.order(:id),:id,:name,include_blank: true %>
+</div>
+
+<div class="field">
+  <%= f.label :group_id %>
+  <%= f.collection_select :group_id,Group.order(:id),:id,:name,include_blank: true %>
+</div>
+
+<div class="field">
+  <%= f.label :subject_id %>
+  <%= f.collection_select :subject_id,Subject.order(:id),:id,:name,include_blank: true %>
+</div>
+
+<div class="field">
+  <%= f.label :location_id %>
+  <%= f.collection_select :location_id,Location.order(:id),:id,:name,include_blank: true %>
+</div>
+
+<div class="field">
+  <%= f.label :user_id, "Teacher" %>
+  <%= f.collection_select :user_id,@user.order(:id), :id, :teachers, include_blank: true %>
+</div>
+
 
   <div class="field">
     <%= f.label :startH %>
