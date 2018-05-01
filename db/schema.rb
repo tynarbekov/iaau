@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180429230321) do
+ActiveRecord::Schema.define(version: 20180501141748) do
 
   create_table "computer_skill_lists", force: :cascade do |t|
     t.string   "comp_skill"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 20180429230321) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "proffesional_skill_lists", force: :cascade do |t|
     t.string   "proff_skill"
     t.datetime "created_at",  null: false
@@ -81,6 +87,25 @@ ActiveRecord::Schema.define(version: 20180429230321) do
     t.index ["proffesional_skill_list_id"], name: "index_proffesional_skills_on_proffesional_skill_list_id"
     t.index ["skill_level_id"], name: "index_proffesional_skills_on_skill_level_id"
     t.index ["user_id"], name: "index_proffesional_skills_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "startH"
+    t.integer  "startM"
+    t.integer  "endH"
+    t.integer  "endM"
+    t.integer  "week_id"
+    t.integer  "subject_id"
+    t.integer  "location_id"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["group_id"], name: "index_schedules_on_group_id"
+    t.index ["location_id"], name: "index_schedules_on_location_id"
+    t.index ["subject_id"], name: "index_schedules_on_subject_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
+    t.index ["week_id"], name: "index_schedules_on_week_id"
   end
 
   create_table "skill_levels", force: :cascade do |t|
@@ -158,6 +183,12 @@ ActiveRecord::Schema.define(version: 20180429230321) do
     t.index ["group_id"], name: "index_users_on_group_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["user_role_id"], name: "index_users_on_user_role_id"
+  end
+
+  create_table "weeks", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "work_experiences", force: :cascade do |t|

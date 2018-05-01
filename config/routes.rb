@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :schedules
   devise_for :users, :path => 'users'
 
 
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
     post '/api/createWorkExperience'
     post '/api/createComputerSkill'
     post '/api/createProffesionalSkill'
+    get '/api/getStudentId/:studentId/:labId' => 'api#getStudentId'
 
   end
 # , :defaults => {:format => :json}

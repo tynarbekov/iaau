@@ -10,6 +10,8 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many   :computer_skills
+  has_many   :schedule
+
   has_many   :proffesional_skills
   has_many   :educations
   has_many   :work_experiences

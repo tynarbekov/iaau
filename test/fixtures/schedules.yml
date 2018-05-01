@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  startH: 1
+  startM: 1
+  endH: 1
+  endM: 1
+
+two:
+  startH: 1
+  startM: 1
+  endH: 1
+  endM: 1

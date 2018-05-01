@@ -2,7 +2,7 @@ class V1::ApiController < ApplicationController
   # skip_before_filter :verify_authenticity_token
   # protect_from_forgery prepend: true, with: :exception
   # before_action :authenticate_user!
-  before_action :check_for_auth!
+  before_action :check_for_auth!, except: [:getStudentId]
   respond_to :json
 
   def createLanguage
@@ -77,26 +77,43 @@ class V1::ApiController < ApplicationController
     end
   end
 
-  def search
-    # searchBy = params[:searchBy]
-    # searchValue = params[:searchValue]
-    #
-    # if searchBy == 'name'
-    #   @result = User.find_by_name(searchValue)
-    #   render json: @result
-    # elsif searchBy == 'lang'
-    #   searchValue = searchValue.capitalize
-    #   proff_skill = ProffesionalSkillList.where(proff_skill: searchValue)
-    #   puts proff_skill.proff_skill
-    #   @result =ProffesionalSkill.where(proffesional_skill_list_id: proff_skill.to_i)
-    #   render json: @result
-    # elsif searchBy == 'comp'
-    #   render json: searchBy
-    # else
-    #   render json: "error"
-    # end
-    #
+  def getStudentId
+      if User.exists?(username: params[:studentId])
+        labSchedule(params[:studentId],params[:labId])
+      else
+        data = {answer: "You are not PROGRAMMER" }
+        render json: data
+      end
   end
+
+  private
+
+  # def labSchedule(studentId,labId)
+  #   lId = 1
+  #   tuesday = []
+  #   subject1 = {
+  #     name: 'CS-100',
+  #     sH: 8,
+  #     sM: 30,
+  #     eH: 10,
+  #     eM: 00,
+  #     labId: nil
+  #   }
+  #   subject2 = {
+  #     name: 'CS-101',
+  #     sH: 10,
+  #     sM: 10,
+  #     eH: 11,
+  #     eM: 30,
+  #     labId: 1
+  #   }
+  #
+  #   tuesday.push(subject1,subject1)
+  #
+  #   # @nowDate =  Date.today.strftime("%A")
+  #   # puts @nowDate
+  #
+  # end
 
 
 
