@@ -1,3 +1,5 @@
+<div class="container content" style="height: 100%;">
+<h3>Create Schedule</h3>
 <p id="notice"><%= notice %></p>
 <%= form_for [current_user,@schedule] do |f| %>
 
@@ -53,25 +55,31 @@
 
   <% end %>
 
+<div class="">
 
-<h1>Schedules</h1>
+  <h1>Schedules</h1>
 
-<% for i in 0...@weeks.length %>
-  ------------- <br>
-  <h3> <%= @weeks[i].name %></h3>
-    <% for j in 0...@groups.length %>
-      <%= @groups[j].name %><br>
-      <% @schedules.each do |s| %>
-        <% if s.group.name == @groups[j].name && s.week.name == @weeks[i].name %>
-        <%= link_to "#{s.subject.name}", edit_user_schedule_path(current_user,s.id) %>
-        | <%= s.user.username %> | <%= s.location.name %> | <%= s.startH %>:<%= s.startM %> | <%= s.endH %>:<%= s.endM %>  <br>
+  <% @schedules = @schedules.sort_by{ |s| s.startH } %>
+  <% for i in 0...@weeks.length %>
+    <div class="col-md-6">
+    <h3> <%= @weeks[i].name %></h3>
+      <% for j in 0...@groups.length %>
+        <%= @groups[j].name %><br>
+        <% @schedules.each do |s| %>
+          <% if s.group.name == @groups[j].name && s.week.name == @weeks[i].name %>
+          <%= link_to "#{s.subject.name}", edit_user_schedule_path(current_user,s.id) %>
+          | <%= s.user.username %> | <%= s.location.name %> | <%= s.startH %>:<%= s.startM %> | <%= s.endH %>:<%= s.endM %>  <br>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-<% end %>
+    </div>
+
+  <% end %>
+</div>
 
 
 
+</div>
 
 
 

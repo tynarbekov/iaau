@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show,:edit, :update, :destroy]
+  before_action :set_user, only: [:ams_data,:show,:edit, :update, :destroy]
 
   def profile
     student = UserRole.find_by_name('student').id
@@ -7,8 +7,17 @@ class UsersController < ApplicationController
     admin = UserRole.find_by_name('admin').id
     @user = current_user
     if current_user.user_role_id == student
+      @work_experience = WorkExperience.where(user_id: @user.id)
+      @proff_skill = ProffesionalSkill.where(user_id: @user.id)
+      @comp_skill = ComputerSkill.where(user_id: @user.id)
+      @education = Education.where(user_id: @user.id)
+      @skills = Skill.where(user_id: @user.id)
+      @languages = UserLanguage.where(user_id: @user.id)
       render 'student'
     elsif current_user.user_role_id == teacher
+      @gId = Group.where(user_id: current_user.id)
+
+      @students = User.where(user_role_id: UserRole.find_by_name('student').id,group_id: @gId )
       render 'teacher'
     elsif current_user.user_role_id == admin
       @teachers = User.where(user_role_id: UserRole.find_by_name('teacher').id)
@@ -71,9 +80,9 @@ class UsersController < ApplicationController
 
 
   def ams_data
-    @ams_info = current_user.reset_password_token
+    @ams_info = @user.reset_password_token
 
-     uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{current_user.username}/", "#{@ams_info}")
+     uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{@user.username}/", "#{@ams_info}")
 
 
      http = Net::HTTP.new(uri.host, uri.port)
@@ -91,7 +100,7 @@ class UsersController < ApplicationController
      end
      @token = token[0]
 
-     getYear = current_user.address.split('-')
+     getYear = @user.address.split('-')
      getYear = getYear[0].to_i
      getDiff = Time.current.year - getYear
 
@@ -125,11 +134,6 @@ class UsersController < ApplicationController
 
 
 
-         # def compare(url,token)
-         #   http = Net::HTTP.new(url.host, url.port)
-         #   http.use_ssl = (uri.scheme == 'https')
-         #
-         # end
 
          getYear += 1
          httpFall = Net::HTTP.new(urlFall.host, urlFall.port)
@@ -186,17 +190,20 @@ class UsersController < ApplicationController
      end
      # Create Chart
      chart(@totalGpa)
+     personalSchedule(@studentGpa[-1])
    else
      flash.now[:notice] = "You enter invalid ID or PASSWORD"
    end#main IF
   end #def
 
   def compare(data,period)
+    puts period
     @failSub = []
     @passSub = []
     for i in 0...data.length
       data[i].each do |d|
         d[1].each do |a|
+          puts a['Subject']
           sum = 0
           sum = ((a['Midterm'].to_i * 40)/100) + ((a['Final'].to_i * 60)/100)
           if sum < 50 || a['Final'].to_i < 50
@@ -207,24 +214,70 @@ class UsersController < ApplicationController
         end
       end
     end
-    @curriculumSub = Subject.where(curriculum_id: [2,4,6,8])
-    @toTake = []
-    @curriculumSub.zip(@passSub).each do |name1,name2|
-      if name1!=name2
-        @toTake.push(name1)
+
+
+    @passSub.each do |s|
+      @failSub.each do |f|
+        if s.split.join(" ") == f
+          @failSub.delete(f)
+        end
       end
     end
-    @total = (@toTake + @failSub)
-    @total2 = @total - (@toTake & @failSub)
-    # for i in 0...@curriculumSub.length
-    #   for j in i...@passSub.length
-    #     if @curriculumSub[i].name != @passSub[j]
-    #       @toTake.push(@curriculumSub[i].name)
-    #     end
-    #   end
-    # end
+
+
+
+    @cIds = Curriculum.where(period: period)
+    @curriculumSub = Subject.where(curriculum_id: @cIds)
+
+    @notTake = []
+    for i in 0...@curriculumSub.length
+      for j in 0...@passSub.length
+        if @curriculumSub[i].name != @passSub[j].split.join(" ")
+          # puts @curriculumSub[i].name
+          if (@notTake.include? @curriculumSub[i].name) == false
+            @notTake.push(@curriculumSub[i].name)
+          else
+            puts "SSSSS"
+          end
+        end
+      end
+    end
+
   end
 
+
+  def personalSchedule(arr)
+    @schedules = Schedule.all
+    @amsSl = []
+    @weeks = Week.all
+    @monday = []
+
+    @resultSchedule = []
+      arr.each do |s|
+        s[1].each do |a|
+          @amsSl.push(a['Subject'])
+        end
+      end
+
+    for i in 0...@schedules.length
+      for j in 0...@amsSl.length
+        if @schedules[i].subject.name == @amsSl[j].split.join(" ")
+          @resultSchedule.push(@schedules[i])
+        end
+      end
+    end
+
+    @resultSchedule = @resultSchedule.sort_by{ |s| s.startH }
+
+    @weeks.each do |s|
+      @resultSchedule.each do |r|
+        if s.name == r.week.name
+          @monday.push(r)
+        end
+      end
+    end
+
+  end
 
   def chart(arr)
     @chart = Fusioncharts::Chart.new({
@@ -296,7 +349,12 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @work_experience = WorkExperience.where(user_id: @user.id)
+    @proff_skill = ProffesionalSkill.where(user_id: @user.id)
+    @comp_skill = ComputerSkill.where(user_id: @user.id)
+    @education = Education.where(user_id: @user.id)
+    @skills = Skill.where(user_id: @user.id)
+    @languages = UserLanguage.where(user_id: @user.id)
   end
 
   def edit

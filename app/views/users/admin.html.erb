@@ -1,49 +1,63 @@
-<%= current_user.username %><br>
-<h3>Search</h3>
+<div class="container content" style="height: 500px;">
 
-<div class="">
-  By Name: <input type="radio" name="asd" value="1" id="name" onclick="hide(this.value)" checked >
-  By Proffesional Skills: <input type="radio" name="asd" value="2" id="skill" onclick="hide(this.value)" >
-  By Computer Skills: <input type="radio" name="asd" value="3" id="comp_skill" onclick="hide(this.value)" >
+  <div class="flex-container">
+
+    <div class="">
+
+    <h3>Search</h3>
+
+    <div class="">
+      By Name: <input type="radio" name="asd" value="1" id="name" onclick="hide(this.value)" checked >
+      By Proffesional Skills: <input type="radio" name="asd" value="2" id="skill" onclick="hide(this.value)" >
+      By Computer Skills: <input type="radio" name="asd" value="3" id="comp_skill" onclick="hide(this.value)" >
+
+    </div>
+
+    <%= form_tag user_users_search_path,  method: :get do %>
+
+      <%= label :name, "Level",id: 'level_name' %>
+      <%= select_tag :level, options_for_select(@level), id: 'level_id', class: "level_id  " %>
+
+      <%= label :skill, "Proffesional Skill", id: 'skill_name' %>
+      <%= text_field_tag :skill, "",id: 'skill_id', class: "form-control input-md" %>
+
+      <%= label :comp, "Computer Skill", id: 'comp_name' %>
+      <%= text_field_tag :comp, "",id: 'comp_id', class: "form-control input-md" %>
+
+      <%= label :name, "Name", id: 'name_name' %>
+      <%= text_field_tag :name, "",id: 'name_id', class: "form-control input-md" %>
+
+      <%= button_tag 'Search', class: "btn btn-primary input-md" %>
+    <% end %>
+    <h3>
+      <%= link_to  "Curriculum", user_curriculums_path(current_user) %><br>
+    </h3>
+
+
+    <h3>
+      <%= link_to  "Schedule", user_schedules_path(current_user) %><br>
+    </h3>
+  </div>
+
+
+
+
+    <div class="">
+      <h3>Teachers</h3>
+        <% @teachers.each do |s| %>
+            <%= link_to  "#{s.username}", user_path(s.id) %><br>
+          <% end %>
+            <h3>Groups</h3>
+          <% @groups.each do |s| %>
+          <%= link_to  "#{s.name}", group_path(s.id) %><br>
+      <% end %>
+    </div>
+
+
+
+  </div>
 
 </div>
-
-<%= form_tag user_users_search_path,  method: :get do %>
-
-  <%= label :name, "Level",id: 'level_name' %>
-  <%= select_tag :level, options_for_select(@level), id: 'level_id', class: "level_id  " %>
-
-  <%= label :skill, "Proffesional Skill", id: 'skill_name' %>
-  <%= text_field_tag :skill, "",id: 'skill_id', class: "form-control input-md" %>
-
-  <%= label :comp, "Computer Skill", id: 'comp_name' %>
-  <%= text_field_tag :comp, "",id: 'comp_id', class: "form-control input-md" %>
-
-  <%= label :name, "Name", id: 'name_name' %>
-  <%= text_field_tag :name, "",id: 'name_id', class: "form-control input-md" %>
-
-  <%= button_tag 'Search', class: "btn btn-primary input-md" %>
-<% end %>
-
-<h3>Teachers</h3>
-<% @teachers.each do |s| %>
-  <%= link_to  "#{s.username}", user_path(s.id) %><br>
-<% end %>
-<h3>Groups</h3>
-<% @groups.each do |s| %>
-  <%= link_to  "#{s.name}", group_path(s.id) %><br>
-
-<% end %>
-
-<h3>
-  <%= link_to  "Curriculum", user_curriculums_path(current_user) %><br>
-</h3>
-
-
-
-<h3>
-  <%= link_to  "Schedule", user_schedules_path(current_user) %><br>
-</h3>
 
 <script type="text/javascript">
   $('#name').click();

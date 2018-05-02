@@ -1,7 +1,13 @@
+<div class="container content" style="height: 500px;">
+  <br>
+<div class="">
 <% if(@result.class ==String) %>
 <%= "YES" %>
 <% else %>
   <% @result.each do |s| %>
-    <%= s.name %><br>
+    <%= link_to "#{s.name} #{s.surname}",user_path(s.id) %>
   <% end %>
 <% end %>
+</div>
+
+</div>

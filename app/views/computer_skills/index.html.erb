@@ -1,3 +1,5 @@
+<div class="container content" style="height: 100%;">
+
 <p id="notice"><%= notice %></p>
 
 
@@ -46,5 +48,7 @@
     <%= computer_skill.skill_level.level %>
 
     <%= link_to 'Edit', edit_user_computer_skill_path(current_user,computer_skill) %>
-    <%= link_to 'Destroy', user_computer_skill_path(current_user,computer_skill), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Destroy', user_computer_skill_path(current_user,computer_skill), method: :delete, data: { confirm: 'Are you sure?' } %><br>
 <% end %>
+
+</div>

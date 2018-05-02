@@ -1,54 +1,82 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Curriculums</h1>
-<% @curriculums.each do |curriculum| %>
-    <%= curriculum.name %>
-    <%= curriculum.period %>
+<div class="container content" style="height: 1500px;">
 
-    <%= link_to 'Edit', edit_user_curriculum_path(current_user,curriculum) %>
-    <%= link_to 'Destroy', user_curriculum_path(current_user,curriculum), method: :delete, data: { confirm: 'Are you sure?' } %><br>
-<% end %>
-<h3>Add Subjects for Curriculum</h3>
-<div class="col-md-7">
-    <div class="card">
-      <div class="card-body">
+  <div class="flex-container">
 
-        <div class="card">
-        <ul class="list-group list-group-flush">
-        <h2 class="my-0">Subject</h2>
-        <form name="createLanguage" method="post" action="/v1/api/createSubject">
+    <div class="">
+    <p id="notice"><%= notice %></p>
 
+    <h1>Curriculums</h1>
+    <% @curriculums.each do |curriculum| %>
+        <%= curriculum.name %>
+        <%= curriculum.period %>
+
+        <%= link_to 'Edit', edit_user_curriculum_path(current_user,curriculum) %>
+        <%= link_to 'Destroy', user_curriculum_path(current_user,curriculum), method: :delete, data: { confirm: 'Are you sure?' } %><br>
+    <% end %>
+  </div>
+
+<div class="">
+
+  <h3>Add Subjects for Curriculum</h3>
+  <div class="col-md-7">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="card">
+          <ul class="list-group list-group-flush">
+          <h2 class="my-0">Subject</h2>
+          <form name="createLanguage" method="post" action="/v1/api/createSubject">
+
+            <div class="form-group">
+            <label for="newLanguage">Choose</label>
+            <select class="" name="curriculum_id">
+              <% @curriculums.each do |cur| %>
+            <option value="<%= cur.id %>"><%= cur.name %>,<%= cur.period %></option>
+            <% end %>
+            </select><br>
+            </div>
           <div class="form-group">
-          <label for="newLanguage">Choose</label>
-          <select class="" name="curriculum_id">
-            <% @curriculums.each do |cur| %>
-          <option value="<%= cur.id %>"><%= cur.name %>,<%= cur.period %></option>
-          <% end %>
-          </select><br>
+            Code:   <input type="text" name="code" value=""><br>
+            Name:  <input type="text" name="name" value=""><br>
+            Credit: <input type="text" name="credit" value=""><br>
+            Hours: <input type="text" name="hours" value=""><br>
           </div>
-        <div class="form-group">
-          Code:   <input type="text" name="code" value=""><br>
-          Name:  <input type="text" name="name" value=""><br>
-          Credit: <input type="text" name="credit" value=""><br>
-          Hours: <input type="text" name="hours" value=""><br>
+          <button class="btn btn-warning btn-lg" type="submit" >Create</button>
+          </form>
+          </ul>
         </div>
-        <button class="btn btn-warning btn-lg" type="submit" >Create</button>
-        </form>
-        </ul>
       </div>
     </div>
   </div>
 </div>
-<div class="">
+  </div>
 
-  <% @curriculums.each do |c| %>
-    <% @parts = @subjects.where(curriculum_id: c.id) %><br>
-      <%= c.name %>  <%= c.period %><br>
-      <% @parts.each do |s| %>
-        <%= s.code %> | <%= s.name %> | <%= s.credit %> | <%= s.hours %> | <%= link_to 'Edit', edit_user_subject_path(current_user,s) %>
-        <%= link_to 'Destroy', user_subject_path(current_user,s),method: :delete, data: { confirm: 'Are you sure?' } %><br>
-    <% end %>
-  <% end %>
+
+
+  <!-- <div class="flex-container"> -->
+<!-- <div class=""> -->
+
+        <% @curriculums.each do |c| %>
+        <div class="col-md-6">
+          <% @parts = @subjects.where(curriculum_id: c.id) %>
+          <h3>  <%= c.name %>  <%= c.period %></h3>
+            <% @parts.each do |s| %>
+              <%= s.code %> | <%= s.name %> | <%= s.credit %> | <%= s.hours %> | <%= link_to 'Edit', edit_user_subject_path(current_user,s) %>
+              <%= link_to 'Destroy', user_subject_path(current_user,s),method: :delete, data: { confirm: 'Are you sure?' } %><br>
+              <% end %>
+        </div>
+        <% end %>
+
+      <!-- </div> -->
+
+  <!-- </div> -->
+
+
+
+
+
+
 
 </div>
 

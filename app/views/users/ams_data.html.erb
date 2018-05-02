@@ -1,6 +1,38 @@
-<div class=""id="chartContainer">
+<div class="container content" style="height: 1500px;">
+  <br>
+
+<div class="" id="chartContainer">
   <%= @chart.render() %>
 </div>
-<% @total.each do |d| %>
-  <%= d %><br>
-<% end %>
+<div class="">
+  <h2>Personal Schedule</h2>
+
+</div>
+
+<div class="col-md-7">
+  <% @weeks.each do |w| %>
+  ----------------
+  <h3><%= w.name %></h3>
+  <% @monday.each do |s| %>
+    <% if w.name == s.week. name%>
+        <%= s.startH %>:<%= s.startM %> | <%= s.endH %>:<%= s.endM %> | <%= s.subject.name %> | <%= s.user.username %> | <%= s.location.name %>  <br>
+    <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="">
+  <h3>Fail In Exam</h3>
+    <% @failSub.each do |f| %>
+        <%= f %><br>
+    <% end %>
+  </div>
+
+  <h3>Not Take</h3>
+    <div class="col-md-7" style="position:absolute; right:-12.5%; float:right">
+        <% @notTake.each do |f| %>
+            <%= f %><br>
+        <% end %>
+    </div>
+
+</div>

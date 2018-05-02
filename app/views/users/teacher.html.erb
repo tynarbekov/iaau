@@ -1,0 +1,146 @@
+<div class="container content" style="height: 900px;">
+
+  <br>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <img src="http://placehold.it/160x220" alt="" class="img-responsive" style = "border-radius: 100px;">
+  <div style = "margin-top: 9%">
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Name </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.name %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Surname</span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.surname %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Group </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+
+            <% @group = Group.where(user_id: @user.id) %>
+            <% if @group != nil %>
+              <td><%= @group.name %></td>
+            <% else %>
+            <% end %>
+
+
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">E-mail </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.email %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Entered Year </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.address %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Phone</span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.phone %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Date of Birth </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <td><%= @user.date_of_birth %></td>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-xs-5 col-sm-5">
+          <span class="input-group-addon">Gender </span>
+        </div>
+        <div class ="col-xs-7 col-sm-7">
+            <% @gender = Gender.where(user_id: @user.id) %>
+                <td><%= @gender.name %></td>
+        </div>
+      </div>
+  </div>
+  <%= link_to "Edit Profile" , edit_user_path(@user)%>
+  </div>
+
+
+  <div class="">
+    <h3>Students in my  group</h3>
+    <% @students.each do |s| %>
+    <%= link_to "#{s.name} #{s.surname}", user_path(s.id) %>
+    <% end %>
+
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  $('#name').click();
+
+  function hide(click){
+    if (click==1) {
+      $('#level_id').hide();
+      $('#level_name').hide();
+
+      $('#skill_id').hide();
+      $('#skill_name').hide();
+
+      $('#comp_name').hide();
+      $('#comp_id').hide();
+
+      $('#name_id').show();
+      $('#name_name').show();
+
+    }
+    else if (click==2) {
+      $('#level_id').show();
+      $('#level_name').show();
+
+      $('#skill_id').show();
+      $('#skill_name').show();
+
+      $('#name_id').hide();
+      $('#name_name').hide();
+
+      $('#comp_name').hide();
+      $('#comp_id').hide();
+
+    }
+
+    else if (click==3) {
+      $('#level_id').show();
+      $('#level_name').show();
+
+      $('#comp_name').show();
+      $('#comp_id').show();
+
+      $('#skill_id').hide();
+      $('#skill_name').hide();
+
+      $('#name_id').hide();
+      $('#name_name').hide();
+
+
+    }
+
+  }
+
+
+</script>

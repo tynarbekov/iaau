@@ -10,8 +10,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    if User.exists?(@group.user_id)
-      @user = User.find(@group.user_id)
+    if User.exists?(@group.id)
+      # @user = User.where(@group.user_id)
       @students = @group.users
     end
   end
@@ -62,7 +62,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to user_users_profile_path(current_user), notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

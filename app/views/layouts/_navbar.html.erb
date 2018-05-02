@@ -1,0 +1,108 @@
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="col-sm-4 csd-text">
+     <%= image_tag("cs.png", class: "logo", size: "200x90",  :alt => "CS LOGO") %>
+  </div>
+  <div class="col-sm-6 csd-text">
+
+  </div>
+  <div class="col-sm-2 csd-text">
+     <%= image_tag("logo.svg.svg", class: "logo", size: "90x90",  :alt => "University logo") %>
+  </div>
+    <div class="container">
+
+       <div class="navbar-header">
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+               <span class="sr-only">Открыть навигацию</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+           </button>
+
+
+           <%= link_to 'CS', '/', class: "navbar-brand" %>
+       </div>
+       <div class="collapse navbar-collapse" id="responsive-menu">
+           <ul class="nav navbar-nav">
+              <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t "first.academics" %><b class="caret"></b></a>
+                 <ul class="dropdown-menu">
+                    <li><%= link_to t('first.undergraduateProgram'), academics_undergraduate_program_path%></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('first.graduateProgram'), academics_graduate_program_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('first.courses'), academics_courses_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('first.calendar'), academics_calendar_path %></li>
+                 </ul>
+              </li>
+              <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t "third.admission" %><b class="caret"></b></a>
+                 <ul class="dropdown-menu">
+                    <li><%= link_to t('third.masterDegree'), admission_master_degree_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('third.bachelorDegree'), admission_bachalor_degree_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('third.college'), admission_college_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('third.exchangeProgram'), admission_exchange_program_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('third.foreignStudents'), admission_foreign_students_path %></li>
+                 </ul>
+              </li>
+              <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t "four.people" %><b class="caret"></b></a>
+                 <ul class="dropdown-menu">
+                    <li><%= link_to t('four.facultyAdvisors'), people_faculty_advisors_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('four.alumni'), "http://alumni.iaau.edu.kg", target: :_blank %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('four.studentGroups'), people_students_groups_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('four.lecturers'), people_lecturers_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('four.prospectiveStudents'), people_prospective_students_path %></li>
+                    <li class="divider"></li>
+                 </ul>
+              </li>
+              <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t "six.newsEvents" %><b class="caret"></b></a>
+                 <ul class="dropdown-menu">
+                    <li><%= link_to t('six.calendarColloquia'), academics_calendar_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to t('six.announcments'), news_events_announcements_path %></li>
+                 </ul>
+              </li>
+
+           </ul>
+           <div>
+              <form lang="en" action="" class="navbar-right">
+                 <p class="lang-btn" ><%= link_to_unless_current "EN", locale: "en" %></p>
+                 <p class="lang-btn" ><%= link_to_unless_current "RU", locale: "ru" %></p>
+              </form>
+              <div class="login">
+                <% if user_signed_in? %>
+                 <p> <%= link_to "Dashboard",  user_users_profile_path(current_user), class: "btn btn-info navbar-right login-btn" %>  </p>
+                 <p> <%= link_to  "Logout", destroy_user_session_path , method: :delete , class: "btn btn-danger navbar-right login-btn", locale: "en" %> </p>
+                 <% else %>
+                 <p> <%= link_to  "Login", new_user_session_path , class:"btn btn-success navbar-right login-btn", locale: "en" %> </p>
+                 <% end %>
+              </div>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 style="color: #2a415f; font-family: sans-serif"><%= t "seven.authorization" %></h1><br>
+          <form>
+            <input type="text" name="user" placeholder="Student ID">
+            <input type="password" name="pass" placeholder="Password">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Log in">
+          </form>
+        </div>
+    </div>
+</div>

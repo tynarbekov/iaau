@@ -45,7 +45,7 @@ class User < ApplicationRecord
    end
 
    def settingUser
-         @user_password = Digest::SHA256.hexdigest("6852623452")
+         @user_password = Digest::SHA256.hexdigest("16010109248")
          uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{self.username}/", "#{@user_password}")
 
          http = Net::HTTP.new(uri.host, uri.port)
@@ -83,7 +83,7 @@ class User < ApplicationRecord
                self.gender_id = Gender.find_by_name(@body["Gender"]).id
                # self.group_id = "mat"
 
-               self.group_id = Group.find_by_name(@body["Group"]).id
+               # self.group_id = Group.find_by_name(@body["Group"]).id
                self.date_of_birth = @body["Birth Date"]
             end
 
