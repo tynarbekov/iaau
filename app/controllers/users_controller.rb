@@ -16,9 +16,54 @@ class UsersController < ApplicationController
       render 'student'
     elsif current_user.user_role_id == teacher
       @gId = Group.where(user_id: current_user.id)
+      @schedule = StudentAttendance.all
+      @attendance = []
+
+      @schedule.each do |s|
+        if s.schedule.user.username == current_user.username
+          @attendance.push(s)
+        end
+      end
+      @attendance.sort_by(&:created_at)
+      @attDays = []
+      @attendance.each do |s|
+        if @attDays.length <=0
+          @attDays.push(s.created_at.to_date)
+        end
+        if @attDays.include? s.created_at.to_date
+        else
+          @attDays.push(s.created_at.to_date)
+        end
+      end
+      @subList = []
+      @attendance.each do |s|
+        if @subList.length <=0
+          @subList.push(s.schedule.subject.name)
+        end
+        if @subList.include? s.schedule.subject.name
+
+        else
+          @subList.push(s.schedule.subject.name)
+        end
+      end
+
+      @userIds = []
+      @schedule.each do |s|
+        @userIds.push  s.schedule.user_id
+      end
+
+      # @counter = []
+      # for i in 0...@userIds
+      #   if  StudentAttendance.where(schedule.user_id: @userIds[i)]
+      #
+      #   end
+      # end
 
       @students = User.where(user_role_id: UserRole.find_by_name('student').id,group_id: @gId )
       render 'teacher'
+
+
+
     elsif current_user.user_role_id == admin
       @teachers = User.where(user_role_id: UserRole.find_by_name('teacher').id)
       @students = User.where(user_role_id: UserRole.find_by_name('student').id )

@@ -86,10 +86,22 @@
     <% @students.each do |s| %>
     <%= link_to "#{s.name} #{s.surname}", user_path(s.id) %>
     <% end %>
-
   </div>
 
-</div>
+    <div class="">
+    <h3>Attendance</h3>
+        <% @attDays.each do |d| %>
+            <h5>Att for:  <%= d %></h5><br>
+          <% @attendance.each do |a| %>
+            Subject: <%= a.schedule.subject.name %><br>
+            <%= a.user.name %> --
+            Come: <%= a.created_at.strftime('%a, %d %b %Y %H:%M:%S') %><br>
+          <% end %>
+          ------------------------------
+        <% end %>
+      </div>
+
+    </div>
 
 <script type="text/javascript">
   $('#name').click();

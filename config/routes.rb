@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :student_attendances
   get 'news_events/calendar_colloquia'
 
   get 'news_events/for_the_media'
@@ -75,7 +76,7 @@ Rails.application.routes.draw do
     post '/api/createWorkExperience'
     post '/api/createComputerSkill'
     post '/api/createProffesionalSkill'
-    get '/api/getStudentId/:a/:id' => 'api#getStudentId', :constraints => {:id => /[0-9A-Za-z\-\.]+/ }
+    get '/api/getStudentId/:studentId/:LabId' => 'api#getStudentId'
 
   end
 # , :defaults => {:format => :json}
