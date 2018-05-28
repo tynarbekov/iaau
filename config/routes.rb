@@ -76,7 +76,7 @@ Rails.application.routes.draw do
     post '/api/createWorkExperience'
     post '/api/createComputerSkill'
     post '/api/createProffesionalSkill'
-    get '/api/getStudentId/:studentId/:LabId' => 'api#getStudentId'
+    get '/api/getStudentId/:labId/:studentId' => 'api#getStudentId'
 
   end
 # , :defaults => {:format => :json}

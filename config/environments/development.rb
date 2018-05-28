@@ -6,7 +6,7 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
 
   # for devise config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 0003 }
   # end devise
   config.cache_classes = false
 
@@ -42,7 +42,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
 
   # For connect with another computer
-  config.asset_host = '192.168.0.108:3000'
+  # config.asset_host = '192.168.0.108:3000'
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large

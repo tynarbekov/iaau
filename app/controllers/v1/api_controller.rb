@@ -79,7 +79,7 @@ class V1::ApiController < ApplicationController
 
   def getStudentId
       if User.exists?(username: params[:studentId])
-        labSchedule(params[:studentId],params[:LabId])
+        labSchedule(params[:studentId],params[:labId])
       else
         data = {answer: "You are not PROGRAMMER" }
         render json: data
@@ -93,7 +93,8 @@ class V1::ApiController < ApplicationController
     @nowDate =  Date.today.strftime("%A")
     @week = Week.where(name: @nowDate)
     @lab = Location.where(name: labId)
-
+    puts @lab
+    puts "LAB1"
     @nowTime = DateTime.now.strftime("%H:%M")
     @editTIme = @nowTime.split(":")
     @editTIme.each.map { |c| Integer(c) }
@@ -103,8 +104,10 @@ class V1::ApiController < ApplicationController
       @a.slice!(0)
     end
     puts "SSSS"
-    puts @a
-    @schedule = Schedule.where(location_id: @lab[0].id,week_id: @week[0].id)
+    puts @lab[0]
+    puts "ENA LAB"
+    # puts @a
+    @schedule = Schedule.where(location_id: @lab[0].id,week_id: 7)
 
     @sSt = @schedule[0].startH
     @sEt = @schedule[0].startM
@@ -118,12 +121,11 @@ class V1::ApiController < ApplicationController
     @user = User.where(username: studentId)
 
     if @end.to_i > @a.to_i  && @a.to_i > @all.to_i
-        if @sTl = StudentAttendance.where(user_id:@user[0].id, schedule_id: @schedule[0].id)
+        if StudentAttendance.where(user_id:@user[0].id, schedule_id: @schedule[0].id).exists?
           puts "YOU ARE ALLREADY COME THIS LESSON"
         else
-          if @uToA = StudentAttendance.create(user_id:@user[0].id, schedule_id: @schedule[0].id )
+          if StudentAttendance.create(user_id:@user[0].id, schedule_id: @schedule[0].id )
             puts "Schedule CREATED"
-
           end
         end
 

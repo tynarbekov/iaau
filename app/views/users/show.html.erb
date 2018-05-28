@@ -289,11 +289,12 @@
               <div class ="col-xs-7 col-sm-7">
 
                   <% @group = Group.where(user_id: @user.id) %>
-                  <% if @group != nil %>
-                    <td><%= @group.name %></td>
-                  <% else %>
+                    <% if @group != nil %>
+                      <% @group.each do |g| %>
+                        <td><%= g.name %></td>
+                      <% end %>
+                    <% else %>
                   <% end %>
-
 
               </div>
             </div>

@@ -26,11 +26,14 @@
         </div>
         <div class ="col-xs-7 col-sm-7">
 
-            <% @group = Group.where(user_id: @user.id) %>
+          <% @group = Group.where(user_id: @user.id) %>
             <% if @group != nil %>
-              <td><%= @group.name %></td>
+              <% @group.each do |g| %>
+                <td><%= g.name %></td>
+              <% end %>
             <% else %>
-            <% end %>
+          <% end %>
+
 
 
         </div>
@@ -91,10 +94,10 @@
     <div class="">
     <h3>Attendance</h3>
         <% @attDays.each do |d| %>
-            <h5>Att for:  <%= d %></h5><br>
+            <h5>Attendance for:  <%= d %></h5><br>
           <% @attendance.each do |a| %>
             Subject: <%= a.schedule.subject.name %><br>
-            <%= a.user.name %> --
+            <%= a.user.name %> <%= a.user.surname %><br>
             Come: <%= a.created_at.strftime('%a, %d %b %Y %H:%M:%S') %><br>
           <% end %>
           ------------------------------

@@ -4,7 +4,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
 
-  config.cas_base_url = "http://192.168.0.117:8080/cas"
+  config.cas_base_url = "http://boogoo.ga:8181/cas"
   config.cas_enable_single_sign_out = true
 
   config.cas_client_config_options = {
