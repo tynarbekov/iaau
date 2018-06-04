@@ -1,10 +1,10 @@
-UserRole.delete_all
-Gender.delete_all
-Group.delete_all
-Language.delete_all
-SkillLevel.delete_all
-ComputerSkillList.delete_all
-ProffesionalSkillList.delete_all
+# UserRole.delete_all
+# Gender.delete_all
+# Group.delete_all
+# Language.delete_all
+# SkillLevel.delete_all
+# ComputerSkillList.delete_all
+# ProffesionalSkillList.delete_all
 
 UserRole.create(name: 'student')
 UserRole.create(name: 'teacher')
@@ -116,18 +116,4 @@ Location.create(name: "203")
 Location.create(name: "204")
 Location.create(name: "205")
 Location.create(name: "206")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #

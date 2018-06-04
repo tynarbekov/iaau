@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20180503001809) do
     t.string   "email"
     t.string   "address"
     t.string   "phone"
-    t.string   "profile_image"
+    t.string   "image"
     t.date     "date_of_birth"
     t.integer  "gender_id"
     t.integer  "user_role_id"

@@ -10,7 +10,8 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 # For generate Char for students
 gem 'fusioncharts-rails'
 #
@@ -24,9 +25,9 @@ gem 'devise_cas_authenticatable'
 # end
 
 # for upload image
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave'
 gem "mini_magick"
-gem 'fog'
+# gem 'fog'
 #
 
 # for create chart

@@ -430,6 +430,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def getPdf
+    @user = current_user
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf { render template: 'users/cv',pdf: 'cv' }
+    end
+  end
+
+
   private
 
   def set_user

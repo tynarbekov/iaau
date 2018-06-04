@@ -7,7 +7,8 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable
 
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :image, ImageUploader
+  # mount_uploader :avatar, AvatarUploader
 
   has_many   :computer_skills
   has_many   :schedule
@@ -45,7 +46,7 @@ class User < ApplicationRecord
    end
 
    def settingUser
-         @user_password = Digest::SHA256.hexdigest("5382463a")
+         @user_password = Digest::SHA256.hexdigest("6852623452")
          uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{self.username}/", "#{@user_password}")
 
          http = Net::HTTP.new(uri.host, uri.port)

@@ -102,6 +102,7 @@ Rails.application.routes.draw do
 
     # post 'language/destroy'
     # post '/languages/update/:langId' => 'languages#update'
+    get 'users/getPdf'
     get 'users/search'
     get 'ams_data/:id' => 'users#ams_data', as: :ams_data_path
     get 'users/profile'

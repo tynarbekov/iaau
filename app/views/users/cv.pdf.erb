@@ -1,0 +1,168 @@
+<div class="container content">
+  <h1 style="text-align: center;">CV</h1>
+  <%= wicked_pdf_stylesheet_link_tag 'pdf' %>
+  <div class="row">
+    <div class="col-sm-2 col-xs-12">
+
+      <%= wicked_pdf_image_tag "#{@user.image}", :style => 'width:100px;height:150px;border-radius: 25px;', :class => "img-responsive" %>
+    </div>
+    <div class="col-sm-10 col-xs-12">
+      <table>
+        <tr>
+          <td><strong>Name: </strong></td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><strong>Surname: </strong></td>
+          <td><%= @user.surname %></td>
+        </tr>
+        <tr>
+          <td><strong>Group: </strong></td>
+          <td><%= Group.find(current_user.group_id).name if current_user.group_id? %></td>
+        </tr>
+        <tr>
+          <td><strong>E-mail: </strong></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><strong>Address: </strong></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><strong>Phone: </strong></td>
+          <td><%= @user.phone %></td>
+        </tr>
+        <tr>
+          <td><strong>Date of Birth: </strong></td>
+          <td><%= @user.date_of_birth %></td>
+        </tr>
+        <tr>
+          <td><strong>Gender:</strong></td>
+          <% @gender = Gender.find(@user.gender_id) %>
+
+          <td><%= @gender.name %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <table>
+        <thead>
+          <tr>
+            <th><h3>Work Experiences<h3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.work_experiences.each do |work_experience| %>
+            <tr>
+              <td>Work period: </td>
+              <td><%= work_experience.work_period %></td>
+            </tr>
+            <tr>
+              <td>Position: </td>
+              <td><%= work_experience.position %></td>
+            </tr>
+            <tr>
+              <td>Place: </td>
+              <td><%= work_experience.place %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-12">
+      <table>
+        <thead>
+          <tr>
+            <th><h3>Educations</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.educations.each do |education| %>
+            <tr>
+              <td>Education period: </td>
+              <td><%= education.period %></td>
+            </tr>
+            <tr>
+              <td>Faculty: </td>
+              <td><%= education.faculty %></td>
+            </tr>
+            <tr>
+              <td>Place: </td>
+              <td><%= education.place %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <table>
+        <thead>
+          <tr>
+            <th><h3>Profesional skills</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><strong>Skill</strong></td>
+              <td><strong>Skill level</strong></td>
+            </tr>
+            <% @user.proffesional_skills.each do |professional_skill| %>
+            <tr>
+              <td><%= professional_skill.proffesional_skill_list.proff_skill %></td>
+              <td><%= professional_skill.skill_level.level %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-12">
+      <table>
+        <thead>
+          <tr>
+            <th><h3>Computer skills</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><strong>Skill</strong></td>
+              <td><strong>Skill level</strong></td>
+            </tr>
+            <% @user.computer_skills.each do |computer_skill| %>
+            <tr>
+              <td><%= computer_skill.computer_skill_list.comp_skill %></td>
+              <td><%= computer_skill.skill_level.level %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <table>
+        <thead>
+          <tr>
+            <th><h3>languages</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><strong>Language</strong></td>
+              <td><strong>Skill level</strong></td>
+            </tr>
+            <% @user.user_languages.each do |language| %>
+            <tr>
+              <td><%= language.language.language %></td>
+              <td><%= language.skill_level.level %></td>
+            </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

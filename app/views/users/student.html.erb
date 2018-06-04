@@ -1,7 +1,7 @@
 <div class="container content" style = "margin-top:10%; ">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <img src="http://placehold.it/160x220" alt="" class="img-responsive" style = "border-radius: 100px;">
+          <%= image_tag(@user.image.to_s, :style => 'width:150px;height:200px;border-radius: 100px;', :class => "img-responsive") %>
           <div style = "margin-top: 9%">
               <div class = "row">
                 <div class = "col-xs-5 col-sm-5">
@@ -249,18 +249,25 @@
           </div>
           <div class = "col-xs-offset-12 col-sm-offset-12 col-md-offset-12 col-lg-offset-12">
 <!--           <div class = "col-md-offset-12 col-lg-offset-12" > -->
+
           <div class="dropdown">
-            <button type = "button" href="#" class="dropdown-toggle" class="btn btn-default btn-lg" data-toggle="dropdown"><span class = "glyphicon glyphicon-cog"></span><b class="caret"></b></button>
+            <button type = "button" href="#" class="" class="" data-toggle="dropdown"><b class="caret"></b></button>
             <ul class="dropdown-menu">
-              <li><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>
+              <li>
                 <%= link_to "Edit Profile" , edit_user_path(@user)%>
               </li>
               <li class="divider"></li>
-              <li><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>
+              <li>
                 <%= link_to "Education Infomations" , user_ams_data_path_url(current_user,@user) %><br>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Generate CV" , user_users_getPdf_path(current_user, format: 'pdf') %><br>
               </li>
             </ul>
           </div>
+
+
           </div>
         </div>
     </div>
