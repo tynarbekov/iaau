@@ -107,7 +107,7 @@ class V1::ApiController < ApplicationController
     puts @lab[0]
     puts "ENA LAB"
     # puts @a
-    @schedule = Schedule.where(location_id: @lab[0].id,week_id: 7)
+    @schedule = Schedule.where(location_id: @lab[0].id,week_id: @week[0].id)
 
     @sSt = @schedule[0].startH
     @sEt = @schedule[0].startM

@@ -87,7 +87,7 @@
   <div class="">
     <h3>Students in my  group</h3>
     <% @students.each do |s| %>
-    <%= link_to "#{s.name} #{s.surname}", user_path(s.id) %>
+    <%= link_to "#{s.name} #{s.surname}", user_path(s.id) %><br>
     <% end %>
   </div>
 
