@@ -1,38 +1,40 @@
-<div class="container content" style="height: 1500px;">
+<div class="container content" style="height: 100%;">
   <br>
 
 <div class="" id="chartContainer">
   <%= @chart.render() %>
 </div>
 <div class="">
-  <h2>Personal Schedule</h2>
-
-</div>
-
-<div class="col-md-7">
+  <h3>Personal Schedule</h3>
   <% @weeks.each do |w| %>
-  ----------------
-  <h3><%= w.name %></h3>
-  <% @monday.each do |s| %>
-    <% if w.name == s.week. name%>
-        <%= s.startH %>:<%= s.startM %> | <%= s.endH %>:<%= s.endM %> | <%= s.subject.name %> | <%= s.user.username %> | <%= s.location.name %>  <br>
-    <% end %>
-    <% end %>
-  <% end %>
-</div>
 
-<div class="">
+    <div class="col-md-2">
+    <h3><%= w.name %></h3>
+    <% @monday.each do |s| %>
+      <% if w.name == s.week. name%>
+          <%= s.startH %>:<%= s.startM %> | <%= s.endH %>:<%= s.endM %> | <%= s.subject.name %> | <%= s.user.username %> | <%= s.location.name %>  <br>
+      <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+
+<div class="col-md-7" style="margin-top: 5%; position:absolute; float:left">
   <h3>Fail In Exam</h3>
     <% @failSub.each do |f| %>
         <%= f %><br>
     <% end %>
-  </div>
+</div>
 
+<div class="col-md-7" style="margin-top: 5%; position:right;">
   <h3>Not Take</h3>
-    <div class="col-md-7" style="position:absolute; right:-12.5%; float:right">
-        <% @notTake.each do |f| %>
-            <%= f %><br>
-        <% end %>
-    </div>
+    <% @notTake.each do |f| %>
+        <%= f %><br>
+    <% end %>
+</div>
+
+
+
 
 </div>

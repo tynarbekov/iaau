@@ -57,11 +57,11 @@
 
 <div class="">
 
-  <h1>Schedules</h1>
+  <h1>Schedule</h1>
 
   <% @schedules = @schedules.sort_by{ |s| s.startH } %>
   <% for i in 0...@weeks.length %>
-    <div class="col-md-6">
+    <div class="col-md-2">
     <h3> <%= @weeks[i].name %></h3>
       <% for j in 0...@groups.length %>
         <%= @groups[j].name %><br>
@@ -76,14 +76,7 @@
 
   <% end %>
 </div>
-
-
-
 </div>
-
-
-
-
 
 
 

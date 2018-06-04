@@ -332,7 +332,7 @@ class UsersController < ApplicationController
          renderAt: "chartContainer",
          dataSource: {
              chart: {
-             caption: "Chart your Grades by Semester",
+             caption: "#{@user.name} #{@user.surname}'s Grades by Semester",
              subCaption: "",
              xAxisname: "Semesters",
              yAxisName: "Range",

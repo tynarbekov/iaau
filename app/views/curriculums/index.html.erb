@@ -6,7 +6,7 @@
     <div class="">
     <p id="notice"><%= notice %></p>
 
-    <h1>Curriculums</h1>
+    <h1>Curriculum</h1>
     <% @curriculums.each do |curriculum| %>
         <%= curriculum.name %>
         <%= curriculum.period %>
@@ -18,14 +18,13 @@
 
 <div class="">
 
-  <h3>Add Subjects for Curriculum</h3>
   <div class="col-md-7">
       <div class="card">
         <div class="card-body">
 
           <div class="card">
           <ul class="list-group list-group-flush">
-          <h2 class="my-0">Subject</h2>
+          <h2 class="my-0">Add Subjects for Curriculum</h2>
           <form name="createLanguage" method="post" action="/v1/api/createSubject">
 
             <div class="form-group">

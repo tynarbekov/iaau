@@ -105,7 +105,6 @@ Week.create(name: "Wednesday")
 Week.create(name: "Thursday")
 Week.create(name: "Friday")
 Week.create(name: "Saturday")
-Week.create(name: "Sunday")
 
 Location.create(name: "Lab1")
 Location.create(name: "Lab2")
