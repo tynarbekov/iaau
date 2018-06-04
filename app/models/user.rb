@@ -46,7 +46,7 @@ class User < ApplicationRecord
    end
 
    def settingUser
-         @user_password = Digest::SHA256.hexdigest("6852623452")
+         @user_password = Digest::SHA256.hexdigest("14010108098")
          uri = URI.join('https://ams.iaau.edu.kg/api/authentication/', "#{self.username}/", "#{@user_password}")
 
          http = Net::HTTP.new(uri.host, uri.port)
