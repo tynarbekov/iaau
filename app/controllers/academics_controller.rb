@@ -1,5 +1,6 @@
 class AcademicsController < ApplicationController
-  def undergradute_program
+  def undergraduate_program
+    
   end
 
   def graduate_program
