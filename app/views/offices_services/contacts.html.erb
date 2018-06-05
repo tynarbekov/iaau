@@ -1,2 +1,51 @@
 <h1>OfficesServices#contacts</h1>
 <p>Find me in app/views/offices_services/contacts.html.erb</p>
+
+
+<div class ="container content">
+      <div class ="row">
+        <div class ="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <h3 style = "text-align:center; margin-top: 10%;">How to find us?</h3>
+          <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script><div style='overflow:hidden;height:400px;width:500px;'><div id='gmap_canvas' style='height:400px;width:500px;'></div><div><small><a href="embedgooglemaps.com/de/">https://embedgooglemaps.com/de/</a></small></div><div><small><a href="https://gefalltmirbutton.org/de/">http://gefalltmirbutton.org/de/</a></small></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div><script type='text/javascript'>function init_map(){var myOptions = {zoom:15,center:new google.maps.LatLng(42.85605421948812,74.68018546085204),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(42.85605421948812,74.68018546085204)});infowindow = new google.maps.InfoWindow({content:'<strong>International Ala-too University</strong><br>International Ala-too University, Bishkek<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+        </div>
+        <div class ="col-xs-12 col-sm-12col-md-6 col-lg-6">
+          <div style ="text-align:center; margin-top: 10%; margin-bottom: -5%;">
+          <h2>Computer Science</h2>
+          <p style ="font-size:21px; margin-top:-1%">Faculty of New Technologies</p>
+          <p style ="font-size:21px; margin-top:-1%;">Ala-too International University</p>
+          </div>
+
+          <table style ="font-size:16px">
+            <tr>
+              <td><span class ="glyphicon glyphicon-map-marker"></span></td>
+              <td>Ankara 1/8 st, Tunguch, 720048, Bishkek, Kyrgyz Republic</td><br>
+            </tr>
+            <tr>
+              <td><span class ="glyphicon glyphicon-earphone"></span></td>
+              <td>Tel:+996 (312) 63-14-25</td><br>
+            </tr>
+            <tr>
+              <td><span class ="glyphicon glyphicon-envelope"></span></td>
+              <td>E-mail: <a href="cs@iaau.edu.kg" style="color: rgb(85, 26, 139);">cs@iaau.edu.kg</a></td>
+            </tr>
+          </table><br>
+
+          <strong style ="font-size:18px">How to get to us?</strong>
+
+          <table style ="font-size:16px">
+            <tr>
+              <td><%= image_tag("mini-bus.png",size: "23x18") %></td>
+              <td>Micro-Buses: 102, 105, 128, 137, 147, 154, 166, 262</td><br>
+            </tr>
+            <tr>
+              <td><%= image_tag("buss.png",size: "23x18") %></td>
+              <td>Buses: 7</td>
+            </tr>
+            <tr>
+              <td><%= image_tag("Trolleybuss.png",size: "23x18") %></td>
+              <td>Trolleybuses: 5, 7</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>

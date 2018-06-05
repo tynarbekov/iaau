@@ -1,19 +1,22 @@
 <div class="navbar navbar-default navbar-fixed-top">
-  <div class="col-sm-4 csd-text">
-     <%= image_tag("Belek.png", class: "logo", size: "200x90",  :alt => "CS LOGO") %>
-  </div>
-  <div class="col-sm-6 csd-text">
-      <div class="row" style ="margin-top: 10%;">
+  <div class ="csd-text">
+  <div class ="container">
+    <div class ="row">
+      <div class="col-md-2" style ="margin-left:0%;">
+       <%= image_tag("Belek.png", class: "logo", size: "200x90",  :alt => "CS LOGO") %>
+      </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+      <div class ="row" style ="margin-top: 17%;">
         <div class ="col-md-6 text-right"><a style ="color:white;" href ="tel:996312631425"><i class="glyphicon glyphicon-earphone"></i>+996 (312) 63 14 25</a></div>
         <div class ="col-md-6 text-right"><a style ="color:white; float-right" href ="#"><i class="glyphicon glyphicon-envelope"></i> cs@iaau.edu.kg</a></div>
-
-       </div>
+      </div>
+    </div>
   </div>
-  <div class="col-sm-2 csd-text" >
+  </div>
   </div>
 
     <div class="container">
-
        <div class="navbar-header">
            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
                <span class="sr-only">Открыть навигацию</span>
@@ -23,7 +26,7 @@
            </button>
 
 
-           <%= link_to 'CS', '/', class: "navbar-brand" %>
+           <%= link_to 'CS', '/', class: "navbar-brand glyphicon glyphicon-link"  %>
        </div>
        <div class="collapse navbar-collapse" id="responsive-menu">
            <ul class="nav navbar-nav">
@@ -115,8 +118,6 @@
            </ul>
            <div>
               <form lang="en" action="" class="navbar-right">
-                 <!-- <p class="lang-btn" ><%= link_to_unless_current "EN", locale: "en" %></p> -->
-                 <!-- <p class="lang-btn" ><%= link_to_unless_current "RU", locale: "ru" %></p> -->
               </form>
               <div class="login">
                 <% if user_signed_in? %>

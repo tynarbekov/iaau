@@ -5,7 +5,6 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <%= image_tag(@user.image.to_s, :style => 'width:150px;height:200px;border-radius: 100px;', :class => "img-responsive") %>
-
           <div style = "margin-top: 9%">
               <div class = "row">
                 <div class = "col-xs-5 col-sm-5">
@@ -254,18 +253,23 @@
           <div class = "col-xs-offset-12 col-sm-offset-12 col-md-offset-12 col-lg-offset-12">
 <!--           <div class = "col-md-offset-12 col-lg-offset-12" > -->
           <div class="dropdown">
-            <button type = "button" href="#" class="dropdown-toggle" class="btn btn-default btn-lg" data-toggle="dropdown"><span class = "glyphicon glyphicon-cog"></span><b class="caret"></b></button>
+            <button type = "button" href="#" class="" class="" data-toggle="dropdown"><b class="caret"></b></button>
             <ul class="dropdown-menu">
-              <li><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>
-                <%= link_to "Education Infomations" , user_ams_data_path_url(@user) %><br>
+
+              <% if @user.name != nil %>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Education Infomations" , user_ams_data_path_url(current_user,@user) %><br>
               </li>
+              <% end %>
             </ul>
           </div>
+
           </div>
         </div>
         <% else %>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <img src="http://placehold.it/160x220" alt="" class="img-responsive" style = "border-radius: 100px;">
+          <%= image_tag(@user.image.to_s, :style => 'width:150px;height:200px;border-radius: 100px;', :class => "img-responsive") %>
         <div style = "margin-top: 9%">
             <div class = "row">
               <div class = "col-xs-5 col-sm-5">

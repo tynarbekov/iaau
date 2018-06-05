@@ -3,10 +3,11 @@
 <div class="container content">
   <%= form_for (@user),html: {multipart: true} do |f| %>
 
-      <div>
-      <%= f.file_field :image %>
-    </div>
     <table>
+      <tr>
+        <td><%= f.label "IMAGE" %>: </td>
+        <td><%= f.file_field :image %></td>
+      </tr>
       <tr>
         <td><%= f.label :name %>: </td>
         <td><%= f.text_field :name %></td>
@@ -34,10 +35,6 @@
       <tr>
         <td><%= f.label :date_of_birth %>: </td>
         <td><%= f.date_field :date_of_birth %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :AmsPassword %>: </td>
-        <td><%= f.password_field :reset_password_token %></td>
       </tr>
       <tr>
         <td><%= f.label :gender %>: </td>
